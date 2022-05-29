@@ -1,4 +1,4 @@
-package programaFutbol;
+package gestorAplicacion;
 
 import java.util.Date;
 

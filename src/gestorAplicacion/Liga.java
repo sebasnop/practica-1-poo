@@ -1,4 +1,4 @@
-package programaFutbol;
+package gestorAplicacion;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -188,10 +188,10 @@ public class Liga extends Arbitro implements LigaManager{
 			              if(equipo.getNombre().equals(linea))
 			                  visitante = equipo;
 			          }
-			           Random arbitroAleatorio= new Random();
+			          //Random arbitroAleatorio= new Random();
 			
-			          int arbitro =arbitroAleatorio.nextInt(4);
-			          System.out.println("El arbitro del partido fue: "+nombres[arbitro]+"\n");
+			          //int arbitro =arbitroAleatorio.nextInt(4);
+			          //System.out.println("El arbitro del partido fue: "+nombres[arbitro]+"\n");
 			          
 			        
 			       

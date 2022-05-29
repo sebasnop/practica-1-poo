@@ -1,4 +1,4 @@
-package programaFutbol;
+package gestorAplicacion;
 
 public class ProgramaFutbol {
 	public static void main(String[] args) {

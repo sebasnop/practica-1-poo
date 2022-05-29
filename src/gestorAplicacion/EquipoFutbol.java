@@ -1,4 +1,4 @@
-package programaFutbol;
+package gestorAplicacion;
 
 public class EquipoFutbol extends ClubesDeportivos {
 	
