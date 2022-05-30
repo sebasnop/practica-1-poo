@@ -10,19 +10,16 @@ public class PartidoJugado extends Partido {
 	
 	
 
-	public PartidoJugado(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante, Date fecha, boolean resena,
-			int golesLocal, int golesVisitante) {
-		super(equipoLocal, equipoVisitante, fecha);
-		this.resena = resena;
+	public PartidoJugado(PartidoNoJugado partido, int golesLocal, int golesVisitante) {
+		super(partido.getEquipoLocal(), partido.getEquipoVisitante(), partido.getFecha());
 		this.golesLocal = golesLocal;
 		this.golesVisitante = golesVisitante;
+		// Borrar partido no jugado de la lista de partidos de la liga
 	}
 	
 	public PartidoJugado() {
-		this(null, null, null, false, 0, 0);
+		this(null, 0, 0);
 	}
-	
-	
 
 	@Override
 	public String mostrarResultado() {

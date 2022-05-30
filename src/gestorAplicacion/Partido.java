@@ -5,9 +5,9 @@ import java.util.Date;
 
 public abstract class Partido {
 	
-	private EquipoFutbol equipoLocal;
-	private EquipoFutbol equipoVisitante;
-	private Date fecha;
+	protected EquipoFutbol equipoLocal;
+	protected EquipoFutbol equipoVisitante;
+	protected Date fecha;
 	
 	public Partido(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante, Date fecha) {
 		this.equipoLocal = equipoLocal;
@@ -15,19 +15,32 @@ public abstract class Partido {
 		this.fecha = fecha;
 	}
 	
-	public EquipoFutbol getEquipoA() {
+	
+	
+	public EquipoFutbol getEquipoLocal() {
 		return equipoLocal;
 	}
-	public void setEquipoA(EquipoFutbol equipoA) {
-		this.equipoLocal = equipoA;
+
+
+
+	public void setEquipoLocal(EquipoFutbol equipoLocal) {
+		this.equipoLocal = equipoLocal;
 	}
-	public EquipoFutbol getEquipoB() {
+
+
+
+	public EquipoFutbol getEquipoVisitante() {
 		return equipoVisitante;
 	}
-	public void setEquipoB(EquipoFutbol equipoB) {
-		this.equipoVisitante = equipoB;
+
+
+
+	public void setEquipoVisitante(EquipoFutbol equipoVisitante) {
+		this.equipoVisitante = equipoVisitante;
 	}
-	
+
+
+
 	public Date getFecha() {
 		return fecha;
 	}

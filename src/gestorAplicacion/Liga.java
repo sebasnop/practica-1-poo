@@ -227,8 +227,8 @@ public class Liga {
 			         
 			        Partido partido = new PartidoJugado();
 			         partido.setFecha(date);
-			         partido.setEquipoA(local);
-			         partido.setEquipoB(visitante);
+			         //partido.setEquipoA(local);
+			         //partido.setEquipoB(visitante);
 			         //partido.setGolesLocal(golesLocal);
 			         //partido.setGolesVisitante(golesVisitante);
 			         partidos.add(partido);
