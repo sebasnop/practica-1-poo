@@ -8,12 +8,15 @@ public class Jugador implements Serializable{
 	private String nombre;
 	private Posicion posicion;
 	private int valorMercado;
-	public Jugador(String nombre, String posicion, int valorMercado) {
+	
+	
+	
+	public Jugador(String nombre, Posicion posicion, int valorMercado) {
+		super();
 		this.nombre = nombre;
-		this.posicion = Posicion.valueOf(posicion);
+		this.posicion = posicion;
 		this.valorMercado = valorMercado;
 	}
-	
 	public String getNombre() {
 		return nombre;
 	}

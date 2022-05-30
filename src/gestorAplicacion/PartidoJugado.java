@@ -10,20 +10,20 @@ public class PartidoJugado extends Partido {
 	
 	
 
-	public PartidoJugado(PartidoNoJugado partido, int golesLocal, int golesVisitante) {
-		super(partido.getEquipoLocal(), partido.getEquipoVisitante(), partido.getFecha());
+	public PartidoJugado(int golesLocal, int golesVisitante) {
+		
 		this.golesLocal = golesLocal;
 		this.golesVisitante = golesVisitante;
 		// Borrar partido no jugado de la lista de partidos de la liga
 	}
 	
 	public PartidoJugado() {
-		this(null, 0, 0);
+		this(0,0);
 	}
 
 	@Override
 	public String mostrarResultado() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

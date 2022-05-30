@@ -8,6 +8,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
+
+import gestorAplicacion.Jugador.Posicion;
+
 import java.util.Random;
 
 public class Liga implements Serializable{
@@ -20,7 +23,7 @@ public class Liga implements Serializable{
 	private final ArrayList<EquipoFutbol> equipos;
 	private final Scanner scanner;
 	private final ArrayList<Partido> partidos;
-	private final ArrayList<Jugador> jugadoresEnVenta= new ArrayList(Arrays.asList(new Jugador("Maradona","Delantero",10000000),new Jugador("Messi","Delantero",20000000),new Jugador("Cristiano Ronaldo","Delantero",20000000),new Jugador("Carles Puyol","Defensa",5000000),new Jugador("Pepe","Defensa",4500000),new Jugador("Rio Ferdinand","Defensa",7000000),new Jugador("Keylor Navas","Portero",11000000),new Jugador("Manuel Neuer","Portero",15000000),new Jugador("Oliver Kahn","Portero",18000000)));
+	private final ArrayList<Jugador> jugadoresEnVenta= new ArrayList(Arrays.asList(new Jugador("Maradona",Posicion.DL,10000000),new Jugador("Messi",Posicion.DL,20000000),new Jugador("Cristiano Ronaldo",Posicion.DL,20000000),new Jugador("Carles Puyol",Posicion.DF,5000000),new Jugador("Pepe",Posicion.DF,4500000),new Jugador("Rio Ferdinand",Posicion.DF,7000000),new Jugador("Keylor Navas",Posicion.PT,11000000),new Jugador("Manuel Neuer",Posicion.PT,15000000),new Jugador("Oliver Kahn",Posicion.PT,18000000)));
 	private ArrayList<String> jugadoresDisponibles= new ArrayList();
 	
 	
@@ -229,10 +232,10 @@ public class Liga implements Serializable{
 			         
 			        Partido partido = new PartidoJugado();
 			         partido.setFecha(date);
-			         //partido.setEquipoA(local);
-			         //partido.setEquipoB(visitante);
-			         //partido.setGolesLocal(golesLocal);
-			         //partido.setGolesVisitante(golesVisitante);
+			         partido.setEquipoLocal(local);
+			         partido.setEquipoVisitante(visitante);
+			         ((PartidoJugado) partido).setGolesLocal(golesLocal);
+			         ((PartidoJugado) partido).setGolesVisitante(golesVisitante);
 			         partidos.add(partido);
 			         local.setGolesAnotados(local.getGolesAnotados()+golesLocal);
 			         visitante.setGolesAnotados(visitante.getGolesAnotados()+golesVisitante);
