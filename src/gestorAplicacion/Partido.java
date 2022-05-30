@@ -1,9 +1,9 @@
 package gestorAplicacion;
 
 import java.util.Date;
+import java.io.Serializable;
 
-
-public class Partido {
+public class Partido implements Serializable {
 	
 	private EquipoFutbol equipoA;
 	private EquipoFutbol equipoB;

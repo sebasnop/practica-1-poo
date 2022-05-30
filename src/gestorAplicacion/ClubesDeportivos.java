@@ -1,8 +1,8 @@
 package gestorAplicacion;
 
+import java.io.Serializable;
 
-
-public  abstract class ClubesDeportivos {
+public  abstract class ClubesDeportivos implements Serializable {
 	
 	private String nombre;
 	private String ubicacion;

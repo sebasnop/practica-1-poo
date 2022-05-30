@@ -1,6 +1,8 @@
 package gestorAplicacion;
+import java.io.Serializable;
 
-public class Jugador {
+
+public class Jugador  implements Serializable{
 	private  String nombre;
 	private String posicion;
 	private  int valorMercado;

@@ -1,5 +1,5 @@
 package gestorAplicacion;
-
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.Random;
-public class Liga extends Arbitro implements LigaManager{
+public class Liga implements LigaManager, Serializable {
 	
 	private final int numeroDeEquipos;
 	private final ArrayList<EquipoFutbol> liga;
