@@ -38,7 +38,21 @@ public class Liga implements Serializable{
 		return equipos;
 	}
     
+    public boolean noCabenEquipos() {
+    	if (getEquipos().size() == getNumeroDeEquipos()) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
     
+    public boolean equipoPertenece(EquipoFutbol equipo) {
+    	if (getEquipos().contains(equipo)) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
 
 	public int getNumeroDeEquipos() {
 		return numeroDeEquipos;
@@ -47,47 +61,20 @@ public class Liga implements Serializable{
 	public void anadirEquipo(EquipoFutbol equipo) {
     	equipos.add(equipo);
 	}
-	        	
-	        
-			private void EliminarEquipo() {
-			System.out.println("Ingrese el nombre del equipo");
-			String linea = scanner.nextLine();
-			for (EquipoFutbol equipo: equipos) {
-				if (equipo.getNombre().equals(linea)){
-					equipos.remove(equipo);
-					System.out.println("Equipo "+ equipo.getNombre()+ " Eliminado");
-					return;
-				}
+	
+	public void eliminarEquipo(EquipoFutbol equipo) {
+		equipos.remove(equipo);
+	}
+	
+	public EquipoFutbol identificarEquipo (String nombreEquipo) {
+		for (EquipoFutbol equipo: equipos) {
+			if (equipo.getNombre().equals(nombreEquipo)){
+				return equipo;
 			}
-			System.out.println("Ese equipo no esta en la liga");		
 		}
-				
-				private void MostrarEstadisticas() {
-			        
-			        System.out.println("Ingrese el nombre del equipo: ");
-			        String linea = scanner.nextLine();
-			         for (EquipoFutbol equipo  : equipos) {
-			             if(equipo.getNombre().equals(linea)){
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Partidos Ganados: " + equipo.getVictorias());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Partidos Jugados: " + equipo.getDerrotas());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Partidos Empatados: " + equipo.getEmpates());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Goles Anotados: " + equipo.getGolesAnotados());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Goles Recibidos: " + equipo.getGolesRecibidos());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Puntos: " + equipo.getPuntos());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Partidos Jugados: " + equipo.getPartidosJugados());
-			                 return;
-			             }
-			         }
-			         System.out.println("Ese equipo no esta en la liga");
-			    }
-		 
-			    private  void MostrarTablaLiga() {
-			    	 
-			        Collections.sort(equipos, new Comparador());
-			        for(EquipoFutbol equipo : equipos) {
-			            System.out.println("Equipo: " + equipo.getNombre()+" Puntos: "+ equipo.getPuntos()+" Diferencia de Gol: "+ (equipo.getGolesAnotados()-equipo.getGolesRecibidos()));
-			    }         
-			  }
+		return null;
+	}
+			    
 			    private void AnadirPartidoJugado(){
 			        System.out.println("Ingrese una Fecha (formato mm-dd-yyyy): ");
 			        String linea = scanner.nextLine();

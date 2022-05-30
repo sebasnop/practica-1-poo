@@ -1,7 +1,10 @@
 package uIMain;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
+import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
 import gestorAplicacion.Liga;
 
@@ -38,13 +41,13 @@ public class Menu {
 				AnadirEquipo();
 				break;
 			case 2 :
-				//EliminarEquipo();
+				EliminarEquipo();
 				break;
 			case 3 :
-				//MostrarEstadisticas();
+				MostrarEstadisticas();
 				break;
 			case 4 :
-				//MostrarTablaLiga();
+				MostrarTablaLiga();
 				break;
 			case 5:
 				//AnadirPartidoJugado();
@@ -73,7 +76,7 @@ public class Menu {
 	
 	private static void AnadirEquipo() {
     	
-    	if (liga.getEquipos().size() == liga.getNumeroDeEquipos()) {
+    	if ( liga.noCabenEquipos() ) {
     		System.out.println("No se puede agregar mas equipos a la Liga");
     		return;
     	}
@@ -84,7 +87,7 @@ public class Menu {
     	String linea = scanner.nextLine();
     	equipo.setNombre(linea);
     	
-    	if (liga.getEquipos().contains(equipo)) {
+    	if ( liga.equipoPertenece(equipo) ) {
     		System.out.println("Este Equipo ya esta en la liga");
     		return;
     	}
@@ -92,21 +95,69 @@ public class Menu {
     	System.out.println("Ingrese la ubicacion del equipo");
     	linea = scanner.nextLine();
     	equipo.setUbicacion(linea);
-    	liga.anadirEquipo(equipo);
     	
     	System.out.println("Ingrese presupuesto del equipo mayor a 0");
     	linea = scanner.nextLine();
     	 
     	 try {
+    		 
     		 equipo.setPresupuesto(Integer.parseInt(linea)) ;
-    		
-         } catch (Exception e) { 
-
-       	 System.out.println("tienes que ingresar un presupuesto valido");
-        		 
-         return;
-     }
+         
+    	 } catch (Exception e) {
+    		 
+    		 System.out.println("tienes que ingresar un presupuesto valido");
+    		 return;
+         
+         }
     	 
+    	 liga.anadirEquipo(equipo);
+    	 
+	}
+	
+	private static void EliminarEquipo() {
+		System.out.println("Ingrese el nombre del equipo");
+		String linea = scanner.nextLine();
+		
+		EquipoFutbol equipo = liga.identificarEquipo(linea);
+		
+		if ( liga.equipoPertenece(equipo) ) {
+			liga.eliminarEquipo(equipo);
+			System.out.println("Equipo " + equipo.getNombre() + " eliminado");
+		} else {
+			System.out.println("Ese equipo no esta en la liga");
+		}
+		
+	}
+	
+	private static void MostrarEstadisticas() {
+        
+        System.out.println("Ingrese el nombre del equipo: ");
+        String linea = scanner.nextLine();
+        
+        EquipoFutbol equipo = liga.identificarEquipo(linea);
+        
+        if ( liga.equipoPertenece(equipo) ) {
+        	System.out.println("Equipo " + equipo.getNombre()+ " Partidos Ganados: " + equipo.getVictorias());
+            System.out.println("Equipo " + equipo.getNombre()+ " Partidos Jugados: " + equipo.getDerrotas());
+            System.out.println("Equipo " + equipo.getNombre()+ " Partidos Empatados: " + equipo.getEmpates());
+            System.out.println("Equipo " + equipo.getNombre()+ " Goles Anotados: " + equipo.getGolesAnotados());
+            System.out.println("Equipo " + equipo.getNombre()+ " Goles Recibidos: " + equipo.getGolesRecibidos());
+            System.out.println("Equipo " + equipo.getNombre()+ " Puntos: " + equipo.getPuntos());
+            System.out.println("Equipo " + equipo.getNombre()+ " Partidos Jugados: " + equipo.getPartidosJugados());
+            return;
+        }
+        
+        System.out.println("Ese equipo no esta en la liga");
+    }
+	
+	private static void MostrarTablaLiga() {
+		
+		ArrayList<EquipoFutbol> equipos = liga.getEquipos();
+   	 
+		Collections.sort(equipos, new Comparador());
+		for(EquipoFutbol equipo : equipos) {
+			System.out.println("Equipo: " + equipo.getNombre()+" Puntos: "+ equipo.getPuntos()+" Diferencia de Gol: "+ (equipo.getGolesAnotados()-equipo.getGolesRecibidos()));
+		}
 	}
 	
 }

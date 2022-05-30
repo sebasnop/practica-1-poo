@@ -9,7 +9,7 @@ public  abstract class ClubDeportivo implements Serializable {
 	
 	@Override
 	public boolean equals(Object o) {
-		return this.nombre.equals(((ClubDeportivo)o).nombre);
+		return this.nombre.equals(((ClubDeportivo) o).nombre);
 	}
 	
 	public String getNombre() {
