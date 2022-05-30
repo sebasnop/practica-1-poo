@@ -1,6 +1,7 @@
 package gestorAplicacion;
 
-public class EquipoFutbol extends ClubDeportivo {
+import java.io.Serializable;
+public class EquipoFutbol extends ClubDeportivo implements Serializable {
 	
 	private int victorias;
 	private int empates;

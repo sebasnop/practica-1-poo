@@ -1,13 +1,13 @@
 package gestorAplicacion;
+import java.io.Serializable;
 
-public class Jugador {
+public class Jugador implements Serializable{
 	
 	public static enum Posicion {PT, DF, MC, DL};
 	
 	private String nombre;
 	private Posicion posicion;
 	private int valorMercado;
-	
 	public Jugador(String nombre, String posicion, int valorMercado) {
 		this.nombre = nombre;
 		this.posicion = Posicion.valueOf(posicion);

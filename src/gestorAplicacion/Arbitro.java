@@ -1,6 +1,7 @@
 package gestorAplicacion;
+import java.io.Serializable;
 
-public class Arbitro {
+public class Arbitro implements Serializable{
 	
 	private String nombre;
 	private int salario;
@@ -21,7 +22,6 @@ public class Arbitro {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
 	
 	public int getSalario() {
 		return salario;

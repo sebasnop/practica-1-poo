@@ -1,5 +1,5 @@
 package gestorAplicacion;
-
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,10 +9,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.Random;
-public class Liga {
+
+public class Liga implements Serializable{
 	
 	public static ArrayList<Arbitro> arbitros = new ArrayList <Arbitro> ();
 	//{"Howard Webb","Pierluigi Collina","Nestor Pitana","Felix Brycht"};
+
 	
 	private final int numeroDeEquipos;
 	private final ArrayList<EquipoFutbol> equipos;
