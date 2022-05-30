@@ -36,10 +36,20 @@ public class Liga implements Serializable{
 	        DisplayMenu();
 	}
 	
+	
+	
+	private void printTitulo() {
+		 
+		 
+		 System.out.println("-----------------------------------");
+		 System.out.println("			MENU DE LA LIGA                        ");
+		 System.out.println("                                   ");
+		 System.out.println("-----------------------------------");
+	 }
 	private void DisplayMenu() {
 		
 		 while(true) {
-	            System.out.println("Menu De La Liga: ");
+	            System.out.println("\n Menu De La Liga: ");
 	            System.out.println("Cree Un Nuevo Equipo Y Añadalo A La Liga (presione 1)");
 	            System.out.println("Eliminar Un Equipo Existente (presione 2)");
 	            System.out.println("Mostrar las Estadisticas Por Equipo (presione 3)");
