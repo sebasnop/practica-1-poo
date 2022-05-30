@@ -6,7 +6,6 @@ public class Arbitro {
 	private int salario;
 	
 	public Arbitro(String nombre, int salario) {
-		super();
 		this.nombre = nombre;
 		this.salario = salario;
 	}
@@ -31,10 +30,9 @@ public class Arbitro {
 		this.salario = salario;
 	}
 	
+	// Falta implementación
 	public int bonificacionSalario() {
 		return 0;
 	}
-	
-	
 
 }

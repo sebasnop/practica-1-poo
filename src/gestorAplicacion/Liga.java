@@ -225,12 +225,12 @@ public class Liga {
 			         }
 			         
 			         
-			        Partido partido = new Partido();
+			        Partido partido = new PartidoJugado();
 			         partido.setFecha(date);
 			         partido.setEquipoA(local);
 			         partido.setEquipoB(visitante);
-			         partido.setGolesA(golesVisitante);
-			         partido.setGolesB(golesLocal);
+			         //partido.setGolesLocal(golesLocal);
+			         //partido.setGolesVisitante(golesVisitante);
 			         partidos.add(partido);
 			         local.setGolesAnotados(local.getGolesAnotados()+golesLocal);
 			         visitante.setGolesAnotados(visitante.getGolesAnotados()+golesVisitante);
@@ -341,7 +341,7 @@ public class Liga {
 			           Calendar cal2 = Calendar.getInstance();
 			           cal2.setTime(p.getFecha());
 			            if (cal.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) || cal.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)) {
-			                System.out.println(p.getEquipoA().getNombre()+ " "+p.getGolesA() + " : "+ p.getGolesB()+ " "+ p.getEquipoB().getNombre());
+			                //System.out.println(p.getEquipoA().getNombre()+ " "+p.getGolesA() + " : "+ p.getGolesB()+ " "+ p.getEquipoB().getNombre());
 			            }
 			       }   
 			  }

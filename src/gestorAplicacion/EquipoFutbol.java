@@ -12,6 +12,7 @@ public class EquipoFutbol extends ClubDeportivo {
 	private int presupuesto;
 	
 	
+	
 	public int getPresupuesto() {
 		return presupuesto;
 	}

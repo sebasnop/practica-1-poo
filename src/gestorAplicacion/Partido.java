@@ -3,47 +3,31 @@ package gestorAplicacion;
 import java.util.Date;
 
 
-public class Partido {
+public abstract class Partido {
 	
-	private EquipoFutbol equipoA;
-	private EquipoFutbol equipoB;
-	private int golesA;
-	private int golesB;
+	private EquipoFutbol equipoLocal;
+	private EquipoFutbol equipoVisitante;
 	private Date fecha;
-	private boolean resena;
 	
-	
-	
-	public boolean isResena() {
-		return resena;
+	public Partido(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante, Date fecha) {
+		this.equipoLocal = equipoLocal;
+		this.equipoVisitante = equipoVisitante;
+		this.fecha = fecha;
 	}
-	public void setResena(boolean resena) {
-		this.resena = resena;
-	}
+	
 	public EquipoFutbol getEquipoA() {
-		return equipoA;
+		return equipoLocal;
 	}
 	public void setEquipoA(EquipoFutbol equipoA) {
-		this.equipoA = equipoA;
+		this.equipoLocal = equipoA;
 	}
 	public EquipoFutbol getEquipoB() {
-		return equipoB;
+		return equipoVisitante;
 	}
 	public void setEquipoB(EquipoFutbol equipoB) {
-		this.equipoB = equipoB;
+		this.equipoVisitante = equipoB;
 	}
-	public int getGolesA() {
-		return golesA;
-	}
-	public void setGolesA(int golesA) {
-		this.golesA = golesA;
-	}
-	public int getGolesB() {
-		return golesB;
-	}
-	public void setGolesB(int golesB) {
-		this.golesB = golesB;
-	}
+	
 	public Date getFecha() {
 		return fecha;
 	}
@@ -51,10 +35,6 @@ public class Partido {
 		this.fecha = fecha;
 	}
 	
-	
-	 
-	
-	
-	
+	public abstract String mostrarResultado();
 
 }
