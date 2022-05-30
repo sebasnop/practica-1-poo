@@ -28,100 +28,25 @@ public class Liga implements Serializable{
 	
 	
 	public Liga(int numeroDeEquipos) {
-		this.numeroDeEquipos = numeroDeEquipos;		 
-	        equipos = new ArrayList<EquipoFutbol>();
-	        partidos = new ArrayList<Partido>();
-	        scanner = new Scanner(System.in);
-	        
-	        DisplayMenu();
+		this.numeroDeEquipos = numeroDeEquipos;
+		equipos = new ArrayList<EquipoFutbol>();
+		partidos = new ArrayList<Partido>();
+		scanner = new Scanner(System.in);
 	}
 	
-	private void DisplayMenu() {
-		
-		 while(true) {
-	            System.out.println("Menu De La Liga: ");
-	            System.out.println("Cree Un Nuevo Equipo Y Añadalo A La Liga (presione 1)");
-	            System.out.println("Eliminar Un Equipo Existente (presione 2)");
-	            System.out.println("Mostrar las Estadisticas Por Equipo (presione 3)");
-	            System.out.println("Mostrar La Tabla De La Liga (presione 4)");
-	            System.out.println("Añadir un Partido Jugado (presione 5)");
-	            System.out.println("Mostrar Calendario y Encontrar un Partido (presione 6)");
-	            System.out.println("Consultar Mercado De Jugadores (presione 7)");
-	            String linea = scanner.nextLine();
-	            int comando = 0;
-	            try {
-	                comando = Integer.parseInt(linea);
-	            } catch (Exception e) {
-	        }
-	            
-	            switch(comando) {
-	                case 1 :
-	                   AnadirEquipo();
-	            break;
-	                case 2 :
-	                    EliminarEquipo();
-	                    break;
-	                case 3 :
-	                    MostrarEstadisticas();
-	                  break;
-	                case 4 :
-	                    MostrarTablaLiga();
-	                  break;
-	                case 5:
-	                    AnadirPartidoJugado();
-	                   break;
-	                case 6:
-	                    MostrarCalendario();
-	                   break;
-	                   
-	                case 7:
-	                	MostrarMercado();
-	                	break;
-	                   
-	               
-	            default:
-	            System.out.println("Comando Incorrecto");
-	        }
-		 }
-	      
+    public ArrayList<EquipoFutbol> getEquipos() {
+		return equipos;
 	}
-	        private void AnadirEquipo() {
-	        	if (equipos.size() == numeroDeEquipos) {
-	        		System.out.println("No se puede agregar mas equipos a la Liga");
-	        		return;
-	        	}
-	        	
-	        	EquipoFutbol equipo = new EquipoFutbol();
-	        	System.out.println("Ingrese el nombre Del equipo");
-	        	String linea = scanner.nextLine();
-	        	equipo.setNombre(linea);
-	        	
-	        	if (equipos.contains(equipo)) {
-	        		System.out.println("Este Equipo ya esta en la liga");
-	        		return;
-	        	}
-	        	
-	        	System.out.println("Ingrese la ubicacion del equipo");
-	        	linea = scanner.nextLine();
-	        	equipo.setUbicacion(linea);
-	        	equipos.add(equipo);
-	        	
-	        	System.out.println("Ingrese presupuesto del equipo mayor a 0");
-	        	linea = scanner.nextLine();
-	        	 
-	        	 try {
-	        		 equipo.setPresupuesto(Integer.parseInt(linea)) ;
-	        		
-	             } catch (Exception e) { 
-	    
-	           	 System.out.println("tienes que ingresar un presupuesto valido");
-	            		 
-	             return;
-	         }
-	        		 
-	        	
-	        		
-	        	}
+    
+    
+
+	public int getNumeroDeEquipos() {
+		return numeroDeEquipos;
+	}
+
+	public void anadirEquipo(EquipoFutbol equipo) {
+    	equipos.add(equipo);
+	}
 	        	
 	        
 			private void EliminarEquipo() {
