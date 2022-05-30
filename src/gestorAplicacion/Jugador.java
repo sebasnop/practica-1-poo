@@ -1,9 +1,9 @@
 package gestorAplicacion;
 
 public class Jugador {
-	private  String nombre;
+	private String nombre;
 	private String posicion;
-	private  int valorMercado;
+	private int valorMercado;
 	public Jugador(String nombre, String posicion, int valorMercado) {
 		super();
 		this.nombre = nombre;
@@ -28,6 +28,5 @@ public class Jugador {
 	public void setValorMercado(int valorMercado) {
 		this.valorMercado = valorMercado;
 	}
-	//Hello
 
 }

@@ -9,10 +9,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.Random;
-public class Liga extends Arbitro implements LigaManager{
+public class Liga {
+	
+	public static ArrayList<Arbitro> arbitros = new ArrayList <Arbitro> ();
+	//{"Howard Webb","Pierluigi Collina","Nestor Pitana","Felix Brycht"};
 	
 	private final int numeroDeEquipos;
-	private final ArrayList<EquipoFutbol> liga;
+	private final ArrayList<EquipoFutbol> equipos;
 	private final Scanner scanner;
 	private final ArrayList<Partido> partidos;
 	private final ArrayList<Jugador> jugadoresEnVenta= new ArrayList(Arrays.asList(new Jugador("Maradona","Delantero",10000000),new Jugador("Messi","Delantero",20000000),new Jugador("Cristiano Ronaldo","Delantero",20000000),new Jugador("Carles Puyol","Defensa",5000000),new Jugador("Pepe","Defensa",4500000),new Jugador("Rio Ferdinand","Defensa",7000000),new Jugador("Keylor Navas","Portero",11000000),new Jugador("Manuel Neuer","Portero",15000000),new Jugador("Oliver Kahn","Portero",18000000)));
@@ -21,14 +24,13 @@ public class Liga extends Arbitro implements LigaManager{
 	
 	public Liga(int numeroDeEquipos) {
 		this.numeroDeEquipos = numeroDeEquipos;		 
-	        liga = new ArrayList<>();
-	        partidos = new ArrayList<>();
+	        equipos = new ArrayList<EquipoFutbol>();
+	        partidos = new ArrayList<Partido>();
 	        scanner = new Scanner(System.in);
 	        
 	        DisplayMenu();
-		
-	
 	}
+	
 	private void DisplayMenu() {
 		
 		 while(true) {
@@ -79,26 +81,25 @@ public class Liga extends Arbitro implements LigaManager{
 	      
 	}
 	        private void AnadirEquipo() {
-	        	if (liga.size() == numeroDeEquipos) {
+	        	if (equipos.size() == numeroDeEquipos) {
 	        		System.out.println("No se puede agregar mas equipos a la Liga");
 	        		return;
-	        		
-	        		
 	        	}
+	        	
 	        	EquipoFutbol equipo = new EquipoFutbol();
 	        	System.out.println("Ingrese el nombre Del equipo");
 	        	String linea = scanner.nextLine();
 	        	equipo.setNombre(linea);
 	        	
-	        	if (liga.contains(equipo)) {
+	        	if (equipos.contains(equipo)) {
 	        		System.out.println("Este Equipo ya esta en la liga");
 	        		return;
-	        		
 	        	}
+	        	
 	        	System.out.println("Ingrese la ubicacion del equipo");
 	        	linea = scanner.nextLine();
 	        	equipo.setUbicacion(linea);
-	        	liga.add(equipo);
+	        	equipos.add(equipo);
 	        	
 	        	System.out.println("Ingrese presupuesto del equipo mayor a 0");
 	        	linea = scanner.nextLine();
@@ -118,15 +119,12 @@ public class Liga extends Arbitro implements LigaManager{
 	        	}
 	        	
 	        
-	        
-	        	
-	        
 			private void EliminarEquipo() {
 			System.out.println("Ingrese el nombre del equipo");
 			String linea = scanner.nextLine();
-			for (EquipoFutbol equipo: liga) {
+			for (EquipoFutbol equipo: equipos) {
 				if (equipo.getNombre().equals(linea)){
-					liga.remove(equipo);
+					equipos.remove(equipo);
 					System.out.println("Equipo "+ equipo.getNombre()+ " Eliminado");
 					return;
 				}
@@ -138,7 +136,7 @@ public class Liga extends Arbitro implements LigaManager{
 			        
 			        System.out.println("Ingrese el nombre del equipo: ");
 			        String linea = scanner.nextLine();
-			         for (EquipoFutbol equipo  : liga) {
+			         for (EquipoFutbol equipo  : equipos) {
 			             if(equipo.getNombre().equals(linea)){
 			                 System.out.println("Equipo " + equipo.getNombre()+ " Partidos Ganados: " + equipo.getVictorias());
 			                 System.out.println("Equipo " + equipo.getNombre()+ " Partidos Jugados: " + equipo.getDerrotas());
@@ -155,8 +153,8 @@ public class Liga extends Arbitro implements LigaManager{
 		 
 			    private  void MostrarTablaLiga() {
 			    	 
-			        Collections.sort(liga, new Comparador());
-			        for(EquipoFutbol equipo : liga) {
+			        Collections.sort(equipos, new Comparador());
+			        for(EquipoFutbol equipo : equipos) {
 			            System.out.println("Equipo: " + equipo.getNombre()+" Puntos: "+ equipo.getPuntos()+" Diferencia de Gol: "+ (equipo.getGolesAnotados()-equipo.getGolesRecibidos()));
 			    }         
 			  }
@@ -173,7 +171,7 @@ public class Liga extends Arbitro implements LigaManager{
 			        System.out.println("Ingrese el equipo Local: ");
 			        linea = scanner.nextLine();
 			        EquipoFutbol local = null;
-			          for(EquipoFutbol equipo : liga){
+			          for(EquipoFutbol equipo : equipos){
 			              if(equipo.getNombre().equals(linea))
 			                  local = equipo;
 			          }  
@@ -184,7 +182,7 @@ public class Liga extends Arbitro implements LigaManager{
 			          System.out.println("Ingrese el equipo visitante: ");
 			          linea = scanner.nextLine();
 			          EquipoFutbol visitante = null;
-			           for(EquipoFutbol equipo : liga){
+			           for(EquipoFutbol equipo : equipos){
 			              if(equipo.getNombre().equals(linea))
 			                  visitante = equipo;
 			          }
@@ -367,7 +365,7 @@ public class Liga extends Arbitro implements LigaManager{
 			    	String linea = scanner.nextLine();
 			    	
 			    	int presupuesto=0;
-			    	for(EquipoFutbol equipo: liga) {
+			    	for(EquipoFutbol equipo: equipos) {
 			    		if(equipo.getNombre().equals(linea))
 			    			presupuesto=equipo.getPresupuesto();
 			    		
