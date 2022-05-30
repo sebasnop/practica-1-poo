@@ -377,12 +377,22 @@ public class Liga implements Serializable{
 			    	System.out.println("Ingrese la posición del jugador");
 			    	 linea = scanner.nextLine();
 			    	 for (Jugador jugador:jugadoresEnVenta) {
-			    		 if(jugador.getPosicion().equals(linea))
+			    		 try {
+			    		 if(Posicion.valueOf(linea).equals(linea));
+			    		 
+			    			 
+			    		 
 			    			jugadoresDisponibles.add(jugador.getNombre());
+			    		 System.out.println(Posicion.valueOf(linea));
+			    		 }
+			    	catch(IllegalArgumentException e) {
+			    			System.out.println("Comando invalido");
+			    			
+			    		}
 			    		 
 			    		 
 			    	 }
-			    		System.out.println("Los jugadores que estan disponibles son"+jugadoresDisponibles);	
+			    		System.out.println("Los jugadores que estan disponibles son "+jugadoresDisponibles);	
 			    		return;
 			    	}
 			    	
