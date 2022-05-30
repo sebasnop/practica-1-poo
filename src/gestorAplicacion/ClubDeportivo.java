@@ -2,17 +2,14 @@ package gestorAplicacion;
 
 
 
-public  abstract class ClubesDeportivos {
+public  abstract class ClubDeportivo {
 	
 	private String nombre;
 	private String ubicacion;
-	private String Estadisticas;
-	
-	
 	
 	@Override
 	public boolean equals(Object o) {
-		return this.nombre.equals(((ClubesDeportivos)o).nombre);
+		return this.nombre.equals(((ClubDeportivo)o).nombre);
 	}
 	
 	public String getNombre() {
@@ -21,20 +18,12 @@ public  abstract class ClubesDeportivos {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
 	public String getUbicacion() {
 		return ubicacion;
 	}
 	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
 	}
-	public String getEstadisticas() {
-		return Estadisticas;
-	}
-	public void setEstadisticas(String estadisticas) {
-		Estadisticas = estadisticas;
-	}
-	
-	
-	
 
 }

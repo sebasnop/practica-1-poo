@@ -1,10 +1,10 @@
 package gestorAplicacion;
 
-public class EquipoFutbol extends ClubesDeportivos {
+public class EquipoFutbol extends ClubDeportivo {
 	
 	private int victorias;
 	private int empates;
-	private  int derrotas;
+	private int derrotas;
 	private int golesAnotados;
 	private int golesRecibidos;
 	private int puntos;
