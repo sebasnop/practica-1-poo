@@ -34,7 +34,13 @@ public class Menu {
 		boolean salir = false;
 
 		while(!salir) {
-			System.out.println("Menu De La Liga: ");
+			
+			System.out.println("----------------------");
+			System.out.println("|        Menu De      |");
+			System.out.println("|         La Liga     |");
+			System.out.println("----------------------");
+			System.out.println("");
+
 			System.out.println("Cree Un Nuevo Equipo Y Anadalo A La Liga (presione 1)");
 			System.out.println("Eliminar Un Equipo Existente (presione 2)");
 			System.out.println("Mostrar las Estadisticas Por Equipo (presione 3)");
