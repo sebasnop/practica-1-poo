@@ -203,7 +203,7 @@ public class Menu {
 		             return;
 		         }
 		         
-		         Partido partido = new PartidoJugado(null,0,0);
+		         Partido partido = new PartidoJugado();
 		         partido.setFecha(date);
 		         partido.setEquipoLocal(local);
 		         partido.setEquipoVisitante(visitante);
