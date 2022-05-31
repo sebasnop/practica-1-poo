@@ -34,7 +34,25 @@ public class Liga implements Serializable{
 		scanner = new Scanner(System.in);
 	}
 	
-    public ArrayList<EquipoFutbol> getEquipos() {
+    public ArrayList<String> getJugadoresDisponibles() {
+		return jugadoresDisponibles;
+	}
+
+	
+
+	public static ArrayList<Arbitro> getArbitros() {
+		return arbitros;
+	}
+
+	public ArrayList<Jugador> getJugadoresEnVenta() {
+		return jugadoresEnVenta;
+	}
+
+	public Scanner getScanner() {
+		return scanner;
+	}
+
+	public ArrayList<EquipoFutbol> getEquipos() {
 		return equipos;
 	}
     
@@ -54,6 +72,10 @@ public class Liga implements Serializable{
     	}
     }
 
+	public ArrayList<Partido> getPartidos() {
+		return partidos;
+	}
+
 	public int getNumeroDeEquipos() {
 		return numeroDeEquipos;
 	}
@@ -61,7 +83,27 @@ public class Liga implements Serializable{
 	public void anadirEquipo(EquipoFutbol equipo) {
     	equipos.add(equipo);
 	}
+
+	public void anadirPartido(Partido partido) {
+		partidos.add(partido);
+	}
 	
+	
+		
+
+			private void EliminarEquipo() {
+			System.out.println("Ingrese el nombre del equipo");
+			String linea = scanner.nextLine();
+			for (EquipoFutbol equipo: equipos) {
+				if (equipo.getNombre().equals(linea)){
+					equipos.remove(equipo);
+					System.out.println("Equipo "+ equipo.getNombre()+ " Eliminado");
+					return;
+				}
+			}
+			}
+
+		
 	public void eliminarEquipo(EquipoFutbol equipo) {
 		equipos.remove(equipo);
 	}
@@ -70,6 +112,7 @@ public class Liga implements Serializable{
 		for (EquipoFutbol equipo: equipos) {
 			if (equipo.getNombre().equals(nombreEquipo)){
 				return equipo;
+
 			}
 		}
 		return null;

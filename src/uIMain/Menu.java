@@ -68,7 +68,7 @@ public class Menu {
 				break;
 	
 			case 7:
-			MostrarMercado();
+			//MostrarMercado();
 				break;
 				
 			case 8:
@@ -224,7 +224,7 @@ public class Menu {
 		         
 	        
 	        
-	}
+	
 	
 	
 	 private static void MostrarCalendario() {
