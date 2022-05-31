@@ -10,15 +10,17 @@ public class PartidoJugado extends Partido {
 	
 	
 
-	public PartidoJugado(int golesLocal, int golesVisitante) {
+	public PartidoJugado(Fixture f, int golesLocal, int golesVisitante) {
+		
+		super(f.getEquipoLocal(), f.getEquipoVisitante(), f.getFecha(), f.getArbitro());
 		
 		this.golesLocal = golesLocal;
 		this.golesVisitante = golesVisitante;
 		// Borrar partido no jugado de la lista de partidos de la liga
 	}
 	
-	public PartidoJugado() {
-		this(0,0);
+	public PartidoJugado(Fixture f) {
+		this(f,0,0);
 	}
 
 	@Override

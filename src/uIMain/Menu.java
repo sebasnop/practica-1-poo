@@ -189,7 +189,7 @@ public class Menu {
 		             return;
 		         }
 		         
-		         Partido partido = new PartidoJugado();
+		         Partido partido = new PartidoJugado(null,0,0);
 		         partido.setFecha(date);
 		         partido.setEquipoLocal(local);
 		         partido.setEquipoVisitante(visitante);

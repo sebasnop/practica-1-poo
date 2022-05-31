@@ -13,20 +13,19 @@ import gestorAplicacion.Jugador.Posicion;
 
 public class Liga implements Serializable{
 	
-	public static ArrayList<Arbitro> arbitros = new ArrayList <Arbitro> ();
-	//{"Howard Webb","Pierluigi Collina","Nestor Pitana","Felix Brycht"};
-
-	
 	private final int numeroDeEquipos;
 	private LinkedList<EquipoFutbol> equipos;
 	private final Scanner scanner;
 	private final ArrayList<Partido> partidos;
-	private final ArrayList<Jugador> jugadoresEnVenta= new ArrayList(Arrays.asList(new Jugador("Maradona",Posicion.DL,10000000),new Jugador("Messi",Posicion.DL,20000000),new Jugador("Cristiano Ronaldo",Posicion.DL,20000000),new Jugador("Carles Puyol",Posicion.DF,5000000),new Jugador("Pepe",Posicion.DF,4500000),new Jugador("Rio Ferdinand",Posicion.DF,7000000),new Jugador("Keylor Navas",Posicion.PT,11000000),new Jugador("Manuel Neuer",Posicion.PT,15000000),new Jugador("Oliver Kahn",Posicion.PT,18000000)));
-	private ArrayList<String> jugadoresDisponibles= new ArrayList();
+	private final ArrayList<Jugador> jugadoresEnVenta= new ArrayList<Jugador>(Arrays.asList(new Jugador("Maradona",Posicion.DL,10000000),new Jugador("Messi",Posicion.DL,20000000),new Jugador("Cristiano Ronaldo",Posicion.DL,20000000),new Jugador("Carles Puyol",Posicion.DF,5000000),new Jugador("Pepe",Posicion.DF,4500000),new Jugador("Rio Ferdinand",Posicion.DF,7000000),new Jugador("Keylor Navas",Posicion.PT,11000000),new Jugador("Manuel Neuer",Posicion.PT,15000000),new Jugador("Oliver Kahn",Posicion.PT,18000000)));
+	private ArrayList<String> jugadoresDisponibles= new ArrayList<String>();
 	
+	private final Date fechaInicio;
 	
-	public Liga(int numeroDeEquipos) {
+	public Liga(int numeroDeEquipos, Date fechaInicio) {
+		
 		this.numeroDeEquipos = numeroDeEquipos;
+		this.fechaInicio = fechaInicio;
 		equipos = new LinkedList<EquipoFutbol>();
 		partidos = new ArrayList<Partido>();
 		scanner = new Scanner(System.in);
@@ -144,7 +143,7 @@ public class Liga implements Serializable{
 			         }
 			         
 			         
-			        Partido partido = new PartidoJugado();
+			        Partido partido = new PartidoJugado(null, 0, 0);
 			         partido.setFecha(date);
 			         partido.setEquipoLocal(local);
 			         partido.setEquipoVisitante(visitante);
