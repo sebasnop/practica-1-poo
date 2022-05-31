@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -13,6 +14,7 @@ import java.util.Scanner;
 
 import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
+import gestorAplicacion.Fixture;
 import gestorAplicacion.Jugador;
 import gestorAplicacion.Liga;
 import gestorAplicacion.Partido;
@@ -24,6 +26,8 @@ import gestorAplicacion.Jugador.Posicion;
 public class Menu {
 	
 	static Scanner scanner = new Scanner(System.in);
+	
+	
 
 	static Liga liga = new Liga(4);
 	
@@ -40,6 +44,7 @@ public class Menu {
 			System.out.println("Añadir un Partido Jugado (presione 5)");
 			System.out.println("Mostrar Calendario y Encontrar un Partido (presione 6)");
 			System.out.println("Consultar Mercado De Jugadores (presione 7)");
+			System.out.println("Generar fixture (presione 8)");
 			String linea = scanner.nextLine();
 			int comando = 0;
 			try {
@@ -70,8 +75,12 @@ public class Menu {
 			case 7:
 			MostrarMercado();
 				break;
-				
+			
 			case 8:
+			GenerarFixture();
+				break;
+				
+			case 9:
 				salir=true;
 				break;
 				
@@ -409,6 +418,18 @@ public class Menu {
 		Collections.sort(equipos, new Comparador());
 		for(EquipoFutbol equipo : equipos) {
 			System.out.println("Equipo: " + equipo.getNombre()+" Puntos: "+ equipo.getPuntos()+" Diferencia de Gol: "+ (equipo.getGolesAnotados()-equipo.getGolesRecibidos()));
+		}
+	}
+	
+	private static void GenerarFixture() {
+		List<List<Fixture>> jornadas = liga.generarFixture();
+		for(int i=0; i<jornadas.size(); i++){
+		    System.out.println("Round " + (i+1));
+		    List<Fixture> round = jornadas.get(i);
+		    for(Fixture fixture: round){
+		        System.out.println(fixture.getEquipoLocal().getNombre() + " vs " + fixture.getEquipoVisitante().getNombre());
+		    }
+		    System.out.println("");
 		}
 	}
 	

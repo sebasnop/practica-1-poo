@@ -11,10 +11,6 @@ public class Fixture extends Partido {
     public Fixture(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante, Date fecha, Arbitro arbitro) {
 		super(equipoLocal, equipoVisitante, fecha, arbitro);
 	}
-    
-    public Fixture(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante) {
-		this(equipoLocal, equipoVisitante, null, null);
-	}
 
     public EquipoFutbol getEquipoLocal() {
         return equipoLocal;

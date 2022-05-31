@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import gestorAplicacion.Jugador.Posicion;
@@ -22,7 +23,16 @@ public class Liga implements Serializable{
 	
 	private final Date fechaInicio;
 	
-	public Liga(int numeroDeEquipos, Date fechaInicio) {
+	public Liga(int numeroDeEquipos) {
+		
+		String fechaTexto = "31/05/2022";
+		Date fechaInicio = null;
+		try {
+			fechaInicio = new SimpleDateFormat("dd/MM/yyyy").parse(fechaTexto);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		this.numeroDeEquipos = numeroDeEquipos;
 		this.fechaInicio = fechaInicio;
@@ -75,6 +85,22 @@ public class Liga implements Serializable{
 		}
 		return null;
 	}
+	
+	public Date fechaJornada(int jornada) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(fechaInicio);
+		c.add(Calendar.DATE, (jornada*7)); // Jornada semanal, se agregan 7 dias 
+		return c.getTime();  // Fecha nueva
+	}
+	
+	public List<List<Fixture>> generarFixture(){
+		
+		GeneradorFixture generadorFixture = new GeneradorFixture();
+		
+		return generadorFixture.getFixtures(this, true);
+		
+	}
+	
 			    
 			    private void AnadirPartidoJugado(){
 			        System.out.println("Ingrese una Fecha (formato mm-dd-yyyy): ");
