@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
+import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -224,7 +224,7 @@ public class Menu {
 		         
 	        
 	        
-	}
+	
 	
 	
 	 private static void MostrarCalendario() {
@@ -331,7 +331,7 @@ public class Menu {
 }
 	    
 	    
-	    private void MostrarMercado() {
+	    private static void MostrarMercado() {
 	    	System.out.println("Ingrese el nombre del equipo para consultar presupuesto");
 	    	String linea = scanner.nextLine();
 	    	
@@ -404,7 +404,7 @@ public class Menu {
 	
 	private static void MostrarTablaLiga(){
 		
-		ArrayList<EquipoFutbol> equipos = liga.getEquipos();
+		LinkedList<EquipoFutbol> equipos = liga.getEquipos();
    	 
 		Collections.sort(equipos, new Comparador());
 		for(EquipoFutbol equipo : equipos) {
