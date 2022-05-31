@@ -5,56 +5,45 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
 import java.util.Scanner;
 
 import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
-
 import gestorAplicacion.Fixture;
-
 import gestorAplicacion.Jugador;
 import gestorAplicacion.Liga;
 import gestorAplicacion.Partido;
 import gestorAplicacion.PartidoJugado;
-
+import gestorAplicacion.Jugador.Posicion;
 
 
 
 public class Menu {
 	
 	static Scanner scanner = new Scanner(System.in);
-	
-	
 
 	static Liga liga = new Liga(4);
 	
 	public static void main(String[] args) {
 		
-	
 		boolean salir = false;
 
 		while(!salir) {
-			
-			System.out.println("---------------------------");
-			System.out.println("|        Menu De           |");
-			System.out.println("|           La Liga        |");
-			System.out.println("---------------------------") ;
-			System.out.println("");
-			System.out.println("Cree Un Nuevo Equipo Y Añadalo A La Liga (presione 1)");
+			System.out.println("Menu De La Liga: ");
+			System.out.println("Cree Un Nuevo Equipo Y Anadalo A La Liga (presione 1)");
 			System.out.println("Eliminar Un Equipo Existente (presione 2)");
 			System.out.println("Mostrar las Estadisticas Por Equipo (presione 3)");
 			System.out.println("Mostrar La Tabla De La Liga (presione 4)");
-			System.out.println("Añadir un Partido Jugado (presione 5)");
+			System.out.println("Anadir un Partido Jugado (presione 5)");
 			System.out.println("Mostrar Calendario y Encontrar un Partido (presione 6)");
 			System.out.println("Consultar Mercado De Jugadores (presione 7)");
 			System.out.println("Generar fixture (presione 8)");
+			System.out.println("Salir (presione 9)");
 			String linea = scanner.nextLine();
 			int comando = 0;
 			try {
@@ -83,13 +72,11 @@ public class Menu {
 				break;
 	
 			case 7:
-			MostrarMercado();
-
+				MostrarMercado();
 				break;
 			
 			case 8:
-			GenerarFixture();
-
+				GenerarFixture();
 				break;
 				
 			case 9:
@@ -108,7 +95,7 @@ public class Menu {
 	
 	private static void AnadirEquipo() {
     	
-    	if ( liga.noCabenEquipos() ) {
+    	if ( liga.ligaCompleta() ) {
     		System.out.println("No se puede agregar mas equipos a la Liga");
     		return;
     	}
@@ -145,6 +132,7 @@ public class Menu {
     	 liga.anadirEquipo(equipo);
     	 
 	}
+	
 
 	
 	private static void AnadirPartidoJugado(){
@@ -209,11 +197,7 @@ public class Menu {
 		             return;
 		         }
 		         
-
-		         
-
 		         Partido partido = new PartidoJugado(null,0,0);
-
 		         partido.setFecha(date);
 		         partido.setEquipoLocal(local);
 		         partido.setEquipoVisitante(visitante);
@@ -248,7 +232,8 @@ public class Menu {
 		         
 	        
 	        
-
+	
+	
 	
 	 private static void MostrarCalendario() {
 	    	System.out.println("Ingrese un anio: ");
@@ -354,9 +339,7 @@ public class Menu {
 }
 	    
 	    
-
 	    private static void MostrarMercado() {
-
 	    	System.out.println("Ingrese el nombre del equipo para consultar presupuesto");
 	    	String linea = scanner.nextLine();
 	    	
@@ -367,7 +350,7 @@ public class Menu {
 	        	
 	        }
 	    			
-	    	System.out.println("Ingrese la posición del jugador");
+	    	System.out.println("Ingrese la posicion del jugador");
 	    	 linea = scanner.nextLine();
 	    	 //for (Jugador jugador:liga.getJugadoresEnVenta()) {
 	    		 //try {
@@ -440,15 +423,15 @@ public class Menu {
 	private static void GenerarFixture() {
 		List<List<Fixture>> jornadas = liga.generarFixture();
 		for(int i=0; i<jornadas.size(); i++){
-		    System.out.println("Round " + (i+1));
+		    System.out.println("Jornada " + (i+1));
 		    List<Fixture> round = jornadas.get(i);
 		    for(Fixture fixture: round){
-		        System.out.println(fixture.getEquipoLocal().getNombre() + " vs " + fixture.getEquipoVisitante().getNombre() + fixture.getFecha() + fixture.getArbitro());
+		        System.out.println(fixture.getEquipoLocal().getNombre() + " vs " + fixture.getEquipoVisitante().getNombre() + 
+		        					" " + fixture.getFecha() + " " + fixture.getArbitro());
 		    }
 		    System.out.println("");
 		}
 	}
 	
-
 
 }
