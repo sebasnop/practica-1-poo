@@ -8,8 +8,6 @@ public class PartidoJugado extends Partido {
 	private int golesLocal;
 	private int golesVisitante;
 	
-	
-
 	public PartidoJugado(Fixture f, int golesLocal, int golesVisitante) {
 		this.equipoLocal = f.getEquipoLocal();
     	this.equipoVisitante = f.getEquipoVisitante();
