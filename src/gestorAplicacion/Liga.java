@@ -5,44 +5,50 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import gestorAplicacion.Jugador.Posicion;
 
-import java.util.Random;
-
 public class Liga implements Serializable{
 	
-	public static ArrayList<Arbitro> arbitros = new ArrayList <Arbitro> ();
-	//{"Howard Webb","Pierluigi Collina","Nestor Pitana","Felix Brycht"};
-
-	
 	private final int numeroDeEquipos;
-	private final ArrayList<EquipoFutbol> equipos;
+	private LinkedList<EquipoFutbol> equipos;
 	private final Scanner scanner;
 	private final ArrayList<Partido> partidos;
-	private final ArrayList<Jugador> jugadoresEnVenta= new ArrayList(Arrays.asList(new Jugador("Maradona",Posicion.DL,10000000),new Jugador("Messi",Posicion.DL,20000000),new Jugador("Cristiano Ronaldo",Posicion.DL,20000000),new Jugador("Carles Puyol",Posicion.DF,5000000),new Jugador("Pepe",Posicion.DF,4500000),new Jugador("Rio Ferdinand",Posicion.DF,7000000),new Jugador("Keylor Navas",Posicion.PT,11000000),new Jugador("Manuel Neuer",Posicion.PT,15000000),new Jugador("Oliver Kahn",Posicion.PT,18000000)));
-	private ArrayList<String> jugadoresDisponibles= new ArrayList();
+	private final ArrayList<Jugador> jugadoresEnVenta= new ArrayList<Jugador>(Arrays.asList(new Jugador("Maradona",Posicion.DL,10000000),new Jugador("Messi",Posicion.DL,20000000),new Jugador("Cristiano Ronaldo",Posicion.DL,20000000),new Jugador("Carles Puyol",Posicion.DF,5000000),new Jugador("Pepe",Posicion.DF,4500000),new Jugador("Rio Ferdinand",Posicion.DF,7000000),new Jugador("Keylor Navas",Posicion.PT,11000000),new Jugador("Manuel Neuer",Posicion.PT,15000000),new Jugador("Oliver Kahn",Posicion.PT,18000000)));
+	private ArrayList<String> jugadoresDisponibles= new ArrayList<String>();
 	
+	private final Date fechaInicio;
 	
 	public Liga(int numeroDeEquipos) {
+		
+		String fechaTexto = "31/05/2022";
+		Date fechaInicio = null;
+		try {
+			fechaInicio = new SimpleDateFormat("dd/MM/yyyy").parse(fechaTexto);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		this.numeroDeEquipos = numeroDeEquipos;
-		equipos = new ArrayList<EquipoFutbol>();
+		this.fechaInicio = fechaInicio;
+		equipos = new LinkedList<EquipoFutbol>();
 		partidos = new ArrayList<Partido>();
 		scanner = new Scanner(System.in);
 	}
 	
+
     public ArrayList<String> getJugadoresDisponibles() {
 		return jugadoresDisponibles;
 	}
 
 	
 
-	public static ArrayList<Arbitro> getArbitros() {
-		return arbitros;
-	}
+	
 
 	public ArrayList<Jugador> getJugadoresEnVenta() {
 		return jugadoresEnVenta;
@@ -52,15 +58,34 @@ public class Liga implements Serializable{
 		return scanner;
 	}
 
-	public ArrayList<EquipoFutbol> getEquipos() {
-		return equipos;
-	}
-    
-    
+	
 
 	public ArrayList<Partido> getPartidos() {
 		return partidos;
 	}
+	
+    public LinkedList<EquipoFutbol> getEquipos() {
+
+		return equipos;
+	}
+    
+    public boolean noCabenEquipos() {
+    	if (getEquipos().size() == getNumeroDeEquipos()) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
+    public boolean equipoPertenece(EquipoFutbol equipo) {
+    	if (getEquipos().contains(equipo)) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+
+	
 
 	public int getNumeroDeEquipos() {
 		return numeroDeEquipos;
@@ -69,6 +94,7 @@ public class Liga implements Serializable{
 	public void anadirEquipo(EquipoFutbol equipo) {
     	equipos.add(equipo);
 	}
+
 	 
 	public void anadirPartido(Partido partido) {
 		partidos.add(partido);
@@ -81,45 +107,38 @@ public class Liga implements Serializable{
 		}
 		
 	}
-			private void EliminarEquipo() {
-			System.out.println("Ingrese el nombre del equipo");
-			String linea = scanner.nextLine();
-			for (EquipoFutbol equipo: equipos) {
-				if (equipo.getNombre().equals(linea)){
-					equipos.remove(equipo);
-					System.out.println("Equipo "+ equipo.getNombre()+ " Eliminado");
-					return;
-				}
+			
+	
+	public void eliminarEquipo(EquipoFutbol equipo) {
+		equipos.remove(equipo);
+	}
+	
+	public EquipoFutbol identificarEquipo (String nombreEquipo) {
+		for (EquipoFutbol equipo: equipos) {
+			if (equipo.getNombre().equals(nombreEquipo)){
+				return equipo;
+
 			}
-			System.out.println("Ese equipo no esta en la liga");		
 		}
-				
-				private void MostrarEstadisticas() {
-			        
-			        System.out.println("Ingrese el nombre del equipo: ");
-			        String linea = scanner.nextLine();
-			         for (EquipoFutbol equipo  : equipos) {
-			             if(equipo.getNombre().equals(linea)){
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Partidos Ganados: " + equipo.getVictorias());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Partidos Jugados: " + equipo.getDerrotas());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Partidos Empatados: " + equipo.getEmpates());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Goles Anotados: " + equipo.getGolesAnotados());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Goles Recibidos: " + equipo.getGolesRecibidos());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Puntos: " + equipo.getPuntos());
-			                 System.out.println("Equipo " + equipo.getNombre()+ " Partidos Jugados: " + equipo.getPartidosJugados());
-			                 return;
-			             }
-			         }
-			         System.out.println("Ese equipo no esta en la liga");
-			    }
-		 
-			    private  void MostrarTablaLiga() {
-			    	 
-			        Collections.sort(equipos, new Comparador());
-			        for(EquipoFutbol equipo : equipos) {
-			            System.out.println("Equipo: " + equipo.getNombre()+" Puntos: "+ equipo.getPuntos()+" Diferencia de Gol: "+ (equipo.getGolesAnotados()-equipo.getGolesRecibidos()));
-			    }         
-			  }
+		return null;
+	}
+	
+	public Date fechaJornada(int jornada) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(fechaInicio);
+		c.add(Calendar.DATE, (jornada*7)); // Jornada semanal, se agregan 7 dias 
+		return c.getTime();  // Fecha nueva
+	}
+	
+	public List<List<Fixture>> generarFixture(){
+		
+		GeneradorFixture generadorFixture = new GeneradorFixture();
+		
+		return generadorFixture.getFixtures(this, true);
+		
+	}
+	
+			    
 			    private void AnadirPartidoJugado(){
 			        System.out.println("Ingrese una Fecha (formato mm-dd-yyyy): ");
 			        String linea = scanner.nextLine();
@@ -187,7 +206,7 @@ public class Liga implements Serializable{
 			         }
 			         
 			         
-			        Partido partido = new PartidoJugado();
+			        Partido partido = new PartidoJugado(null, 0, 0);
 			         partido.setFecha(date);
 			         partido.setEquipoLocal(local);
 			         partido.setEquipoVisitante(visitante);

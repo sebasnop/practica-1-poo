@@ -1,32 +1,52 @@
 package uIMain;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+
+
 import java.util.Scanner;
 
+import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
+
+import gestorAplicacion.Fixture;
+
 import gestorAplicacion.Jugador;
 import gestorAplicacion.Liga;
 import gestorAplicacion.Partido;
 import gestorAplicacion.PartidoJugado;
-import gestorAplicacion.Jugador.Posicion;
+
 
 
 
 public class Menu {
 	
 	static Scanner scanner = new Scanner(System.in);
+	
+	
 
 	static Liga liga = new Liga(4);
 	
 	public static void main(String[] args) {
 		
+	
 		boolean salir = false;
 
 		while(!salir) {
-			System.out.println("Menu De La Liga: ");
+			
+			System.out.println("---------------------------");
+			System.out.println("|        Menu De           |");
+			System.out.println("|           La Liga        |");
+			System.out.println("---------------------------") ;
+			System.out.println("");
 			System.out.println("Cree Un Nuevo Equipo Y Añadalo A La Liga (presione 1)");
 			System.out.println("Eliminar Un Equipo Existente (presione 2)");
 			System.out.println("Mostrar las Estadisticas Por Equipo (presione 3)");
@@ -34,6 +54,7 @@ public class Menu {
 			System.out.println("Añadir un Partido Jugado (presione 5)");
 			System.out.println("Mostrar Calendario y Encontrar un Partido (presione 6)");
 			System.out.println("Consultar Mercado De Jugadores (presione 7)");
+			System.out.println("Generar fixture (presione 8)");
 			String linea = scanner.nextLine();
 			int comando = 0;
 			try {
@@ -46,13 +67,13 @@ public class Menu {
 				AnadirEquipo();
 				break;
 			case 2 :
-				//EliminarEquipo();
+				EliminarEquipo();
 				break;
 			case 3 :
-				//MostrarEstadisticas();
+				MostrarEstadisticas();
 				break;
 			case 4 :
-				//MostrarTablaLiga();
+				MostrarTablaLiga();
 				break;
 			case 5:
 				AnadirPartidoJugado();
@@ -63,9 +84,15 @@ public class Menu {
 	
 			case 7:
 			MostrarMercado();
+
+				break;
+			
+			case 8:
+			GenerarFixture();
+
 				break;
 				
-			case 8:
+			case 9:
 				salir=true;
 				break;
 				
@@ -81,7 +108,7 @@ public class Menu {
 	
 	private static void AnadirEquipo() {
     	
-    	if (liga.getEquipos().size() == liga.getNumeroDeEquipos()) {
+    	if ( liga.noCabenEquipos() ) {
     		System.out.println("No se puede agregar mas equipos a la Liga");
     		return;
     	}
@@ -92,7 +119,7 @@ public class Menu {
     	String linea = scanner.nextLine();
     	equipo.setNombre(linea);
     	
-    	if (liga.getEquipos().contains(equipo)) {
+    	if ( liga.equipoPertenece(equipo) ) {
     		System.out.println("Este Equipo ya esta en la liga");
     		return;
     	}
@@ -100,23 +127,25 @@ public class Menu {
     	System.out.println("Ingrese la ubicacion del equipo");
     	linea = scanner.nextLine();
     	equipo.setUbicacion(linea);
-    	liga.anadirEquipo(equipo);
     	
     	System.out.println("Ingrese presupuesto del equipo mayor a 0");
     	linea = scanner.nextLine();
     	 
     	 try {
+    		 
     		 equipo.setPresupuesto(Integer.parseInt(linea)) ;
-    		
-         } catch (Exception e) { 
-
-       	 System.out.println("tienes que ingresar un presupuesto valido");
-        		 
-         return;
-     }
+         
+    	 } catch (Exception e) {
+    		 
+    		 System.out.println("tienes que ingresar un presupuesto valido");
+    		 return;
+         
+         }
+    	 
+    	 liga.anadirEquipo(equipo);
     	 
 	}
-	
+
 	
 	private static void AnadirPartidoJugado(){
 		 System.out.println("Ingrese una Fecha (formato mm-dd-yyyy): ");
@@ -180,7 +209,11 @@ public class Menu {
 		             return;
 		         }
 		         
-		         Partido partido = new PartidoJugado();
+
+		         
+
+		         Partido partido = new PartidoJugado(null,0,0);
+
 		         partido.setFecha(date);
 		         partido.setEquipoLocal(local);
 		         partido.setEquipoVisitante(visitante);
@@ -215,8 +248,7 @@ public class Menu {
 		         
 	        
 	        
-	}
-	
+
 	
 	 private static void MostrarCalendario() {
 	    	System.out.println("Ingrese un anio: ");
@@ -322,7 +354,9 @@ public class Menu {
 }
 	    
 	    
-	    private void MostrarMercado() {
+
+	    private static void MostrarMercado() {
+
 	    	System.out.println("Ingrese el nombre del equipo para consultar presupuesto");
 	    	String linea = scanner.nextLine();
 	    	
@@ -355,5 +389,66 @@ public class Menu {
 	    		//return;
 	    	//}
 	    	
-	    }
+	    //}
+
+	private static void EliminarEquipo() {
+		System.out.println("Ingrese el nombre del equipo");
+		String linea = scanner.nextLine();
+		
+		EquipoFutbol equipo = liga.identificarEquipo(linea);
+		
+		if ( liga.equipoPertenece(equipo) ) {
+			liga.eliminarEquipo(equipo);
+			System.out.println("Equipo " + equipo.getNombre() + " eliminado");
+		} else {
+			System.out.println("Ese equipo no esta en la liga");
+		}
+		
+	}
+	
+	private static void MostrarEstadisticas() {
+        
+        System.out.println("Ingrese el nombre del equipo: ");
+        String linea = scanner.nextLine();
+        
+        EquipoFutbol equipo = liga.identificarEquipo(linea);
+        
+        if ( liga.equipoPertenece(equipo) ) {
+        	System.out.println("Equipo " + equipo.getNombre()+ " Partidos Ganados: " + equipo.getVictorias());
+            System.out.println("Equipo " + equipo.getNombre()+ " Partidos Jugados: " + equipo.getDerrotas());
+            System.out.println("Equipo " + equipo.getNombre()+ " Partidos Empatados: " + equipo.getEmpates());
+            System.out.println("Equipo " + equipo.getNombre()+ " Goles Anotados: " + equipo.getGolesAnotados());
+            System.out.println("Equipo " + equipo.getNombre()+ " Goles Recibidos: " + equipo.getGolesRecibidos());
+            System.out.println("Equipo " + equipo.getNombre()+ " Puntos: " + equipo.getPuntos());
+            System.out.println("Equipo " + equipo.getNombre()+ " Partidos Jugados: " + equipo.getPartidosJugados());
+            return;
+        }
+        
+        System.out.println("Ese equipo no esta en la liga");
+    }
+	
+	private static void MostrarTablaLiga(){
+		
+		LinkedList<EquipoFutbol> equipos = liga.getEquipos();
+   	 
+		Collections.sort(equipos, new Comparador());
+		for(EquipoFutbol equipo : equipos) {
+			System.out.println("Equipo: " + equipo.getNombre()+" Puntos: "+ equipo.getPuntos()+" Diferencia de Gol: "+ (equipo.getGolesAnotados()-equipo.getGolesRecibidos()));
+		}
+	}
+	
+	private static void GenerarFixture() {
+		List<List<Fixture>> jornadas = liga.generarFixture();
+		for(int i=0; i<jornadas.size(); i++){
+		    System.out.println("Round " + (i+1));
+		    List<Fixture> round = jornadas.get(i);
+		    for(Fixture fixture: round){
+		        System.out.println(fixture.getEquipoLocal().getNombre() + " vs " + fixture.getEquipoVisitante().getNombre() + fixture.getFecha() + fixture.getArbitro());
+		    }
+		    System.out.println("");
+		}
+	}
+	
+
+
 }
