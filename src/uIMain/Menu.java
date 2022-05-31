@@ -427,7 +427,7 @@ public class Menu {
 		    System.out.println("Round " + (i+1));
 		    List<Fixture> round = jornadas.get(i);
 		    for(Fixture fixture: round){
-		        System.out.println(fixture.getEquipoLocal().getNombre() + " vs " + fixture.getEquipoVisitante().getNombre());
+		        System.out.println(fixture.getEquipoLocal().getNombre() + " vs " + fixture.getEquipoVisitante().getNombre() + fixture.getFecha() + fixture.getArbitro());
 		    }
 		    System.out.println("");
 		}

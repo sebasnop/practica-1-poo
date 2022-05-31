@@ -11,14 +11,6 @@ public abstract class Partido implements Serializable {
 	protected Date fecha;
 	protected Arbitro arbitro;
 	
-	public Partido(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante, Date fecha, Arbitro arbitro) {
-		this.equipoLocal = equipoLocal;
-		this.equipoVisitante = equipoVisitante;
-		this.fecha = fecha;
-		this.arbitro = arbitro;
-	}
-	
-	
 	public EquipoFutbol getEquipoLocal() {
 		return equipoLocal;
 	}
