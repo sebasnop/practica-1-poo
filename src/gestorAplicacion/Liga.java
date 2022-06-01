@@ -5,10 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
+import gestorAplicacion.Arbitro;
 import gestorAplicacion.Jugador.Posicion;
 
 public class Liga implements Serializable{
@@ -73,6 +74,10 @@ public class Liga implements Serializable{
 	public int getNumeroDeEquipos() {
 		return numeroDeEquipos;
 	}
+	
+
+	
+	
 	
 	
 	// Metodos aplicados

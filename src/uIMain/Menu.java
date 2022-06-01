@@ -8,10 +8,12 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import java.util.Scanner;
 
+import gestorAplicacion.Arbitro;
 import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
 import gestorAplicacion.Fixture;
@@ -30,6 +32,13 @@ public class Menu {
 	static Liga liga = new Liga(4);
 	
 	public static void main(String[] args) {
+		
+		 
+		 
+		 
+		 
+		
+		
 		
 		boolean salir = false;
 
