@@ -18,6 +18,12 @@ public class PartidoJugado extends Partido {
 		// Borrar partido no jugado de la lista de partidos de la liga
 	}
 	
+	
+	public PartidoJugado() {
+		super();
+	}
+
+
 	public PartidoJugado(Fixture f) {
 		this(f,0,0);
 	}

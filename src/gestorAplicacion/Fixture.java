@@ -10,6 +10,7 @@ public class Fixture extends Partido {
 	
 
     public Fixture(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante, Date fecha, Arbitro arbitro) {
+    	
     	this.equipoLocal = equipoLocal;
     	this.equipoVisitante = equipoVisitante;
     	this.fecha = fecha;

@@ -34,12 +34,17 @@ public class Menu {
 		boolean salir = false;
 
 		while(!salir) {
-			System.out.println("Menu De La Liga: ");
+			
+			System.out.println("----------------------");
+			System.out.println("|        Menu De      |");
+			System.out.println("|         La Liga     |");
+			System.out.println("----------------------");
+			System.out.println("");
 			System.out.println("Cree Un Nuevo Equipo Y Anadalo A La Liga (presione 1)");
 			System.out.println("Eliminar Un Equipo Existente (presione 2)");
 			System.out.println("Mostrar las Estadisticas Por Equipo (presione 3)");
 			System.out.println("Mostrar La Tabla De La Liga (presione 4)");
-			System.out.println("Añadir un Partido Jugado (presione 5)");
+			System.out.println("Anadir un Partido Jugado (presione 5)");
 			System.out.println("Mostrar Calendario y Encontrar un Partido (presione 6)");
 			System.out.println("Consultar Mercado De Jugadores (presione 7)");
 			System.out.println("Generar fixture (presione 8)");
@@ -197,7 +202,7 @@ public class Menu {
 		             return;
 		         }
 		         
-		         Partido partido = new PartidoJugado(null,0,0);
+		         Partido partido = new PartidoJugado();
 		         partido.setFecha(date);
 		         partido.setEquipoLocal(local);
 		         partido.setEquipoVisitante(visitante);
@@ -350,7 +355,7 @@ public class Menu {
 	        	
 	        }
 	    			
-	    	System.out.println("Ingrese la posición del jugador");
+	    	System.out.println("Ingrese la posicion del jugador");
 	    	 linea = scanner.nextLine();
 	    	 //for (Jugador jugador:liga.getJugadoresEnVenta()) {
 	    		 //try {
