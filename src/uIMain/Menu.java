@@ -35,7 +35,7 @@ public class Menu {
 
 		while(!salir) {
 			System.out.println("Menu De La Liga: ");
-			System.out.println("Cree Un Nuevo Equipo Y Añadalo A La Liga (presione 1)");
+			System.out.println("Cree Un Nuevo Equipo Y Anadalo A La Liga (presione 1)");
 			System.out.println("Eliminar Un Equipo Existente (presione 2)");
 			System.out.println("Mostrar las Estadisticas Por Equipo (presione 3)");
 			System.out.println("Mostrar La Tabla De La Liga (presione 4)");
