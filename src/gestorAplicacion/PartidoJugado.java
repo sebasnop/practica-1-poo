@@ -11,7 +11,6 @@ public class PartidoJugado extends Partido {
 	public PartidoJugado(Fixture f, int golesLocal, int golesVisitante) {
 		this.equipoLocal = f.getEquipoLocal();
     	this.equipoVisitante = f.getEquipoVisitante();
-    	this.fecha = f.getFecha();
     	this.arbitro = f.getArbitro();
 		this.golesLocal = golesLocal;
 		this.golesVisitante = golesVisitante;

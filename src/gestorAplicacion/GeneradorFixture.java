@@ -32,7 +32,7 @@ public class GeneradorFixture {
                 if (partido == 0) {
                     visitante = cantidadEquipos - 1;
                 }
-                fixturesJornada.add(new Fixture(equipos.get(local), equipos.get(visitante), fechaJornada, arbitro));
+                fixturesJornada.add(new Fixture(equipos.get(local), equipos.get(visitante), arbitro));
             }
             jornadas.add(fixturesJornada);
         }
@@ -60,7 +60,7 @@ public class GeneradorFixture {
         	
             if (numeroDeJornada % 2 == 1) {
                 Fixture fixture = jornadas.get(numeroDeJornada).get(0);
-                jornadas.get(numeroDeJornada).set(0, new Fixture(fixture.getEquipoVisitante(), fixture.getEquipoLocal(), fechaJornada, fixture.getArbitro()));
+                jornadas.get(numeroDeJornada).set(0, new Fixture(fixture.getEquipoVisitante(), fixture.getEquipoLocal(), fixture.getArbitro()));
             }
         }
         
@@ -76,7 +76,7 @@ public class GeneradorFixture {
                 
                 for(Fixture fixture: jornada){
                     
-                	jornadaAlReves.add(new Fixture(fixture.getEquipoVisitante(), fixture.getEquipoLocal(), fechaJornada, fixture.getArbitro()));
+                	jornadaAlReves.add(new Fixture(fixture.getEquipoVisitante(), fixture.getEquipoLocal(), fixture.getArbitro()));
                 	
                 }
                 

@@ -8,7 +8,6 @@ public abstract class Partido implements Serializable {
 	
 	protected EquipoFutbol equipoLocal;
 	protected EquipoFutbol equipoVisitante;
-	protected Date fecha;
 	protected Arbitro arbitro;
 	
 	public EquipoFutbol getEquipoLocal() {
@@ -23,13 +22,6 @@ public abstract class Partido implements Serializable {
 	}
 	public void setEquipoVisitante(EquipoFutbol equipoVisitante) {
 		this.equipoVisitante = equipoVisitante;
-	}
-
-	public Date getFecha() {
-		return fecha;
-	}
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
 	}
 	
 	public Arbitro getArbitro() {

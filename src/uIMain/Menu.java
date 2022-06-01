@@ -33,7 +33,7 @@ public class Menu {
 	
 	public static void main(String[] args) {
 		
-		 
+		System.out.println(Arbitro.escogerAleatoriamente().getNombre());
 		 
 		 
 		 
@@ -212,7 +212,6 @@ public class Menu {
 		         }
 		         
 		         Partido partido = new PartidoJugado();
-		         partido.setFecha(date);
 		         partido.setEquipoLocal(local);
 		         partido.setEquipoVisitante(visitante);
 		         ((PartidoJugado) partido).setGolesLocal(golesLocal);
@@ -330,7 +329,7 @@ public class Menu {
 	    cal.set(Y, M-1, D);
 	       for (Partido p : liga.getPartidos()) {
 	           Calendar cal2 = Calendar.getInstance();
-	           cal2.setTime(p.getFecha());
+	           //cal2.setTime(p.getFecha());
 	            if (cal.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) || cal.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)) {
 	                System.out.println(p.getEquipoLocal().getNombre()+ " "+((PartidoJugado) p).getGolesLocal() + " : "+ ((PartidoJugado) p).getGolesVisitante()+ " "+((PartidoJugado) p).getEquipoVisitante().getNombre());
 	            }
@@ -441,7 +440,7 @@ public class Menu {
 		    List<Fixture> round = jornadas.get(i);
 		    for(Fixture fixture: round){
 		        System.out.println(fixture.getEquipoLocal().getNombre() + " vs " + fixture.getEquipoVisitante().getNombre() + 
-		        					" " + fixture.getFecha() + " " + fixture.getArbitro());
+		        					" " + fixture.getArbitro().getNombre());
 		    }
 		    System.out.println("");
 		}

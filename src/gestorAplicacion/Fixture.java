@@ -9,16 +9,15 @@ public class Fixture extends Partido {
     Arbitro arbitro;
 	
 
-    public Fixture(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante, Date fecha, Arbitro arbitro) {
+    public Fixture(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante, Arbitro arbitro) {
     	
     	this.equipoLocal = equipoLocal;
     	this.equipoVisitante = equipoVisitante;
-    	this.fecha = fecha;
     	this.arbitro = arbitro;
 	}
     
     public Fixture(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante) {
-		this(equipoLocal, equipoVisitante, null, Arbitro.escogerAleatoriamente());
+		this(equipoLocal, equipoVisitante, Arbitro.escogerAleatoriamente());
 	}
 
     public EquipoFutbol getEquipoLocal() {
