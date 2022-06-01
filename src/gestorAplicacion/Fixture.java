@@ -10,7 +10,6 @@ public class Fixture extends Partido {
 	
 
     public Fixture(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante, Arbitro arbitro) {
-    	
     	this.equipoLocal = equipoLocal;
     	this.equipoVisitante = equipoVisitante;
     	this.arbitro = arbitro;
@@ -39,6 +38,11 @@ public class Fixture extends Partido {
 	@Override
 	public String mostrarResultado() {
 		return "No se ha jugado aún";
+	}
+	
+	public String toString() {
+		return  "\n" + getEquipoLocal().getNombre() + " vs " + getEquipoVisitante().getNombre() + "\n" + 
+				getEquipoLocal().getUbicacion() + " | " + "Arbitro: " + arbitro.getNombre();
 	}
 
 }

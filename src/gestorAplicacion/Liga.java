@@ -131,5 +131,11 @@ public class Liga implements Serializable{
 		GeneradorFixture generadorFixture = new GeneradorFixture();
 		return generadorFixture.getFixtures(this, true);
 	}
+	
+	// Se genera el calendario de partidos
+		public List<Jornada> generarFixture1(){
+			PruebaGenerador generadorFixture = new PruebaGenerador();
+			return generadorFixture.getFixtures(this, true);
+		}
 				    	
 }

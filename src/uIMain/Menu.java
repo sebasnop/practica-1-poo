@@ -17,6 +17,7 @@ import gestorAplicacion.Arbitro;
 import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
 import gestorAplicacion.Fixture;
+import gestorAplicacion.Jornada;
 import gestorAplicacion.Jugador;
 import gestorAplicacion.Liga;
 import gestorAplicacion.Partido;
@@ -32,13 +33,17 @@ public class Menu {
 	static Liga liga = new Liga(4);
 	
 	public static void main(String[] args) {
-		
-		System.out.println(Arbitro.escogerAleatoriamente().getNombre());
 		 
 		 
-		 
+		EquipoFutbol equipo1 = new EquipoFutbol("Barcelona", "Camp Nou", 100000000);
+		EquipoFutbol equipo2 = new EquipoFutbol("Liverpool", "Anfield", 120000000);
+		EquipoFutbol equipo3 = new EquipoFutbol("Marsella", "Velodrome", 60000000);
+		EquipoFutbol equipo4 = new EquipoFutbol("Dortmund", "Signal Iduna", 300000000);
 		
-		
+		liga.anadirEquipo(equipo1);
+		liga.anadirEquipo(equipo2);
+		liga.anadirEquipo(equipo3);
+		liga.anadirEquipo(equipo4);
 		
 		boolean salir = false;
 
@@ -90,7 +95,7 @@ public class Menu {
 				break;
 			
 			case 8:
-				GenerarFixture();
+				GenerarFixture1();
 				break;
 				
 			case 9:
@@ -441,6 +446,18 @@ public class Menu {
 		    for(Fixture fixture: round){
 		        System.out.println(fixture.getEquipoLocal().getNombre() + " vs " + fixture.getEquipoVisitante().getNombre() + 
 		        					" " + fixture.getArbitro().getNombre());
+		    }
+		    System.out.println("");
+		}
+	}
+	
+	private static void GenerarFixture1() {
+		List<Jornada> jornadas = liga.generarFixture1();
+		for(int i=0; i<jornadas.size(); i++){
+		    System.out.println("\n" + "JORNADA " + (i+1));
+		    List<Partido> round = jornadas.get(i).getPartidos();
+		    for(Partido fixture: round){
+		        System.out.println(fixture);
 		    }
 		    System.out.println("");
 		}

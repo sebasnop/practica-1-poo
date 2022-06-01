@@ -2,6 +2,7 @@ package gestorAplicacion;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Jornada {
@@ -15,6 +16,9 @@ public class Jornada {
 		this.partidos = partidos;
 	}
 	
+	public Jornada () {
+		this.partidos = new LinkedList<Partido>();
+	}
 	
 	// Getters y setters
 
@@ -44,6 +48,10 @@ public class Jornada {
 	
 	
 	// Metodos
+	
+	public void agregarPartido(Partido partido) {
+		partidos.add(partido);
+	}
 	
 	public String mostrarFecha() {
 		

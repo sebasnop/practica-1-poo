@@ -12,7 +12,12 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 	private int partidosJugados;
 	private int presupuesto;
 	
+	public EquipoFutbol(String nombre, String ubicacion, int presupuesto){
+		this.nombre = nombre;
+		this.ubicacion = ubicacion;
+	}
 	
+	public EquipoFutbol(){}
 	
 	public int getPresupuesto() {
 		return presupuesto;
