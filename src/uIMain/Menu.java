@@ -71,7 +71,7 @@ public class Menu {
 				EliminarEquipo();
 				break;
 			case 3 :
-				//Falta MostrarEquipos();
+				MostrarEquipos();
 				break;
 			case 4:
 				GenerarCalendario();
@@ -284,6 +284,22 @@ public class Menu {
 		
 	}
 	
+	private static void MostrarEquipos() {
+		
+		System.out.println("\nEquipos de la Liga: \n");
+		
+		liga.getEquipos().forEach((equipo) -> {
+			System.out.println(equipo.getNombre());
+		});
+		
+		// Si la liga no esta completa
+		if (!liga.ligaCompleta()) {
+			int equiposFaltantes = liga.getNumeroDeEquipos() - liga.getEquipos().size();
+			System.out.println("\n" + "Falta anadir " + equiposFaltantes + " equipos a la Liga" + "\n");
+		}
+		
+	}
+	
 	private static void MostrarEstadisticas() {
         
         System.out.println("Ingrese el nombre del equipo: ");
@@ -322,7 +338,8 @@ public class Menu {
 		
 		if (jornadas.isEmpty()) {
 			
-			System.out.println("Aun no se ha generado el Fixture");
+			System.out.println("Aun no se ha generado el Calendario");
+			return;
 		
 		} else {
 		
