@@ -30,6 +30,14 @@ public abstract class Partido implements Serializable {
 		return arbitro;
 	}
 	
+
+
+    // Se coloca solo aqui porque a un PartidoJugado no se le puede reasignar el Arbitro
+	public void setArbitro(Arbitro arbitro) {
+		this.arbitro = arbitro;
+		arbitro.setPartidos(arbitro.getPartidos()+1);
+	}
+	
 	// Metodos
 	
 	@Override
@@ -37,10 +45,10 @@ public abstract class Partido implements Serializable {
 		
 		if (arbitro == null) {
 			return  "\n" + getEquipoLocal().getNombre() + " vs " + getEquipoVisitante().getNombre() + "\n" + 
-					getEquipoLocal().getUbicacion();
+					getEquipoLocal().getUbicacion() + " | Arbitro: Por definir";
 		} else {
 			return  "\n" + getEquipoLocal().getNombre() + " vs " + getEquipoVisitante().getNombre() + "\n" + 
-					getEquipoLocal().getUbicacion() + getArbitro();
+					getEquipoLocal().getUbicacion() + " | Arbitro: " + getArbitro();
 		}
 		
 	}

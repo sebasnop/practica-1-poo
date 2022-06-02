@@ -33,10 +33,4 @@ public class Fixture extends Partido {
         this.equipoVisitante = equipoVisitante;
     }
 
-    // Se coloca solo aqui porque a un PartidoJugado no se le puede reasignar el Arbitro
-	public void setArbitro(Arbitro arbitro) {
-		this.arbitro = arbitro;
-		arbitro.setPartidos(arbitro.getPartidos()+1);
-	}
-
 }

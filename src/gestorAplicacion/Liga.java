@@ -19,23 +19,16 @@ public class Liga implements Serializable{
 	private final ArrayList<Jugador> jugadoresEnVenta= new ArrayList<Jugador>(Arrays.asList(new Jugador("Maradona",Posicion.DL,10000000),new Jugador("Messi",Posicion.DL,20000000),new Jugador("Cristiano Ronaldo",Posicion.DL,20000000),new Jugador("Carles Puyol",Posicion.DF,5000000),new Jugador("Pepe",Posicion.DF,4500000),new Jugador("Rio Ferdinand",Posicion.DF,7000000),new Jugador("Keylor Navas",Posicion.PT,11000000),new Jugador("Manuel Neuer",Posicion.PT,15000000),new Jugador("Oliver Kahn",Posicion.PT,18000000)));
 	private final ArrayList<String> jugadoresDisponibles= new ArrayList<String>();
 	
-	private final Date fechaInicio;
+	private Date fechaInicio;
 	private List<Jornada> calendario = new LinkedList<Jornada>();
 	private int proximaJornada;
 	
+	// El calendario esta listo cuando este generado y se le asignen fechas y arbitros
+	private boolean calendarioListo = false;
+	
 	public Liga(int numeroDeEquipos) {
 		
-		String fechaTexto = "03/06/2022";
-		Date fechaInicio = null;
-		
-		try {
-			fechaInicio = new SimpleDateFormat("dd/MM/yyyy").parse(fechaTexto);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
 		this.numeroDeEquipos = numeroDeEquipos;
-		this.fechaInicio = fechaInicio;
 		equipos = new LinkedList<EquipoFutbol>();
 		proximaJornada = 0;
 		
@@ -59,7 +52,10 @@ public class Liga implements Serializable{
 	public ArrayList<Jugador> getJugadoresEnVenta() {
 		return jugadoresEnVenta;
 	}
-
+	
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
@@ -78,11 +74,16 @@ public class Liga implements Serializable{
 	public void setProximaJornada(int proximaJornada) {
 		this.proximaJornada = proximaJornada;
 	}
+
+	public boolean isCalendarioListo() {
+		return calendarioListo;
+	}
+	public void setCalendarioListo(boolean calendarioListo) {
+		this.calendarioListo = calendarioListo;
+	}
 	
 	
-	
-	
-	// Metodos aplicados
+	// Metodos
 
 
 	// Permite saber si la liga ya contiene la cantidad de equipos esperada
@@ -122,14 +123,6 @@ public class Liga implements Serializable{
 		return null;
 	}
 	
-	// Calcula la fecha de una jornada. Las jornadas se juegan cada 7 dias
-	public Date fechaJornada(int jornada) {
-		Calendar c = Calendar.getInstance();
-		c.setTime(fechaInicio); // Localiza la jornada inicial en el calendario
-		c.add(Calendar.DATE, (jornada*7)); // Agrega 7 dias por cada jornada que haya pasado 
-		return c.getTime();  // Obtiene la fecha nueva
-	}
-	
 	// Se genera el calendario de partidos
 	public void generarFixture(){
 		GeneradorFixture generadorFixture = new GeneradorFixture();
@@ -139,6 +132,7 @@ public class Liga implements Serializable{
 	
 	public void eliminarCalendario() {
 		calendario.clear();
+		this.setCalendarioListo(false);
 		
 		equipos.forEach((equipo) -> {
 			equipo.setPuntos(0);
@@ -163,6 +157,36 @@ public class Liga implements Serializable{
 		
 		proximaJornada++;
 	
+	}
+	
+	public void asignarArbitrosFechas() {
+		
+		int indiceJornada = 0;
+		
+		for (Jornada jornada: calendario) {
+
+			// Asignacion de fechas
+			jornada.setIndice(indiceJornada);
+			jornada.fechaJornada(fechaInicio);
+			
+			// Asignacion de Arbitros
+			ArrayList<Arbitro> arbitrosAleatorios = Arbitro.listaAleatoriaArbitros();
+			int indicePartido = 0;
+			
+			for (Partido fixture: jornada.getPartidos()) {
+				Arbitro arbitroAleatorio = arbitrosAleatorios.get(indicePartido);
+				System.out.println(arbitroAleatorio);
+				fixture.setArbitro(arbitroAleatorio);
+				
+				indicePartido++;
+			}
+			
+			indiceJornada++;
+			
+		}
+		
+		this.setCalendarioListo(true);
+		
 	}
 				    	
 }

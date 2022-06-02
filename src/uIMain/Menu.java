@@ -1,11 +1,13 @@
 package uIMain;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Collections;
-
+import java.util.Date;
 import java.util.Scanner;
 
 import gestorAplicacion.Comparador;
@@ -50,7 +52,7 @@ public class Menu {
 			System.out.println("Mostrar Equipos (presione 3)");
 			System.out.println("Generar calendario (presione 4)");
 			System.out.println("Mostrar calendario (presione 5)");
-			System.out.println("Asignar arbitros y fechas (presione 6)");
+			System.out.println("Asignar arbitros y fechas a los enfrentamientos (presione 6)");
 			System.out.println("Registrar resultados de jornada (presione 7)");
 			System.out.println("Mostrar la tabla de la Liga (presione 8)");
 			System.out.println("Mostrar las estadisticas por Equipo (presione 9)");
@@ -80,7 +82,7 @@ public class Menu {
 				MostrarCalendario();
 				break;
 			case 6:
-				// Falta AsignarArbitrosYFechas();
+				AsignarArbitrosFechas();
 				break;
 			case 7 :
 				RegistrarResultadosJornada();
@@ -155,10 +157,10 @@ public class Menu {
 		int numeroJornadaARegistrar = liga.getProximaJornada();
 		List<Jornada> calendario = liga.getCalendario();
 		
-		// Se valida que si haya calendario
-		if ( calendario.isEmpty() ) {
+		// Se valida que si haya calendario completo
+		if ( !liga.isCalendarioListo() ) {
 			
-			System.out.println("Primero se debe generar el calendario");
+			System.out.println("Primero se debe generar el calendario y asignarle arbitros y fechas");
 			return;
 		
 		// Se valida que todavia no se hayan agregado los resultados de todas las jornadas
@@ -226,6 +228,8 @@ public class Menu {
 				
 			});
 			
+			jornadaJugada.setFecha(jornadaNoJugada.getFecha());
+			jornadaJugada.setIndice(jornadaNoJugada.getIndice());
 			// Se registra la nueva jornada en la liga
 			liga.registrarJornada(jornadaJugada);
 			
@@ -342,14 +346,41 @@ public class Menu {
 			return;
 		
 		} else {
-		
-			for(int i=0; i<jornadas.size(); i++){
-			    System.out.println("\n" + "JORNADA " + (i+1));
-			    List<Partido> jornada = jornadas.get(i).getPartidos();
-			    for(Partido fixture: jornada){
-			        System.out.println(fixture);
-			    }
-			    System.out.println("");
+			
+			if ( liga.isCalendarioListo() ) {
+				
+				int indiceJornada = 1;
+				
+				for (Jornada jornada: jornadas) {
+					
+					System.out.println("\n" + "JORNADA " + indiceJornada + "\n" + jornada.mostrarFecha());
+					
+					for (Partido partido: jornada.getPartidos()) {
+						System.out.println(partido);
+					}
+					
+					System.out.println("");
+					indiceJornada++;
+					
+				}
+				
+			} else {
+				
+				int indiceJornada = 1;
+				
+				for (Jornada jornada: jornadas) {
+					
+					System.out.println("\n" + "JORNADA " + indiceJornada  + "\nFecha por definir");
+					
+					for (Partido fixture: jornada.getPartidos()) {
+						System.out.println(fixture);
+					}
+					
+					System.out.println("");
+					indiceJornada++;
+					
+				}
+				
 			}
 			
 		}
@@ -371,13 +402,34 @@ public class Menu {
 		
 		// Si la liga ya tiene fixture
 		} else {
-			System.out.println("El fixture ya fue creado, no se puede crear nuevamente");
+			System.out.println("El calendario ya fue creado, no se puede crear nuevamente");
 			return;
 		}
 		
 	}
 	
-	private static void AsignarArbitros() {
+	private static void AsignarArbitrosFechas() {
+		
+		if (liga.getCalendario().isEmpty()) {
+			System.out.println("El calendario debe ser creado");
+			return;
+		} else {
+			System.out.println("Ingrese la fecha de inicio de la liga: (dd-mm-aaaa)");
+			String linea = scanner.nextLine();
+			
+			Date fechaInicio;
+			
+	        try {
+	        	fechaInicio = new SimpleDateFormat("dd-MM-yyyy").parse(linea);
+	        } catch (ParseException ex) {
+	            System.out.println("Debes ingresar una fecha valida en formato dd-mm-aaaa");
+	            return;
+	        }
+	        
+	        liga.setFechaInicio(fechaInicio);
+	        liga.asignarArbitrosFechas();
+	        MostrarCalendario();
+		}
 		
 	}
 	

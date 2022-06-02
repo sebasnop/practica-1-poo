@@ -19,7 +19,6 @@ public List<Jornada> getFixtures(Liga liga, boolean incluirFixturesAlReves) {
         for (int numeroDeJornada = 0; numeroDeJornada < jornadasTotales; numeroDeJornada++) {
             
         	Jornada jornada = new Jornada();
-            // Date fechaJornada = liga.fechaJornada(numeroDeJornada);
             
             for (int partido = 0; partido < partidosPorJornada; partido++) {
             	
@@ -53,8 +52,6 @@ public List<Jornada> getFixtures(Liga liga, boolean incluirFixturesAlReves) {
         // así que se cambia a locales en jornadas impares.
         for (int numeroDeJornada = 0; numeroDeJornada < jornadas.size(); numeroDeJornada++) {
         	
-        	// Date fechaJornada = liga.fechaJornada(numeroDeJornada);
-        	
             if (numeroDeJornada % 2 == 1) {
                 Partido fixture = jornadas.get(numeroDeJornada).getPartidos().get(0);
                 jornadas.get(numeroDeJornada).getPartidos().set(0, new Fixture(fixture.getEquipoVisitante(), fixture.getEquipoLocal()));
@@ -64,20 +61,15 @@ public List<Jornada> getFixtures(Liga liga, boolean incluirFixturesAlReves) {
         if(incluirFixturesAlReves){
             List<Jornada> fixturesAlReves = new LinkedList<Jornada>();
             
-            //int numeroDeJornada = jornadasTotales+1;
-            
             for(Jornada jornada: jornadas){
                 
             	Jornada jornadaAlReves = new Jornada();
-            	// Date fechaJornada = liga.fechaJornada(numeroDeJornada);
                 
                 for(Partido fixture: jornada.getPartidos()){
                     
                 	jornadaAlReves.agregarPartido(new Fixture(fixture.getEquipoVisitante(), fixture.getEquipoLocal()));
                 	
                 }
-                
-                //numeroDeJornada++;
                 
                 fixturesAlReves.add(jornadaAlReves);
             }
