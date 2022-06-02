@@ -2,6 +2,7 @@ package gestorAplicacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 public class Arbitro implements Serializable{
@@ -64,5 +65,24 @@ public class Arbitro implements Serializable{
 		//a.setPartidos(a.getPartidos()+1);
         return a;
 	}
-
+	
+	public static ArrayList<Arbitro> listaAleatoriaArbitros(){
+		ArrayList<Arbitro> arbitrosRandomizer =new ArrayList<>(federacionArbitros);
+		ArrayList<Arbitro> arbitrosAleatorio =new ArrayList<>();
+		Collections.shuffle(arbitrosRandomizer);
+		arbitrosAleatorio.addAll(arbitrosRandomizer);
+		return arbitrosAleatorio;
+	}
+	 
+	@Override
+	public String toString() {
+		return nombre;
+	}
+	
+	public static void reestablecerArbitros () {
+		
+		federacionArbitros.forEach((arbitro) -> arbitro.setPartidos(0) );
+		
+	}
+	
 }

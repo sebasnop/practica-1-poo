@@ -1,7 +1,5 @@
 package gestorAplicacion;
 
-import java.util.Date;
-
 public class Fixture extends Partido {
 
     EquipoFutbol equipoLocal;
@@ -9,16 +7,14 @@ public class Fixture extends Partido {
     Arbitro arbitro;
 	
 
-    public Fixture(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante, Date fecha, Arbitro arbitro) {
-    	
+    public Fixture(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante, Arbitro arbitro) {
     	this.equipoLocal = equipoLocal;
     	this.equipoVisitante = equipoVisitante;
-    	this.fecha = fecha;
     	this.arbitro = arbitro;
 	}
     
     public Fixture(EquipoFutbol equipoLocal, EquipoFutbol equipoVisitante) {
-		this(equipoLocal, equipoVisitante, null, Arbitro.escogerAleatoriamente());
+		this(equipoLocal, equipoVisitante, Arbitro.escogerAleatoriamente());
 	}
 
     public EquipoFutbol getEquipoLocal() {
@@ -37,9 +33,10 @@ public class Fixture extends Partido {
         this.equipoVisitante = equipoVisitante;
     }
 
-	@Override
-	public String mostrarResultado() {
-		return "No se ha jugado aún";
+    // Se coloca solo aqui porque a un PartidoJugado no se le puede reasignar el Arbitro
+	public void setArbitro(Arbitro arbitro) {
+		this.arbitro = arbitro;
+		arbitro.setPartidos(arbitro.getPartidos()+1);
 	}
 
 }

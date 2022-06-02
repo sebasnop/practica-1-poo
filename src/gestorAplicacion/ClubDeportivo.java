@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public  abstract class ClubDeportivo implements Serializable {
 	
-	private String nombre;
-	private String ubicacion;
+	protected String nombre;
+	protected String ubicacion;
 	
 	@Override
 	public boolean equals(Object o) {
