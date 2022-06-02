@@ -71,14 +71,20 @@ public class Liga implements Serializable{
 	public int getNumeroDeEquipos() {
 		return numeroDeEquipos;
 	}
-	
-
+    
+	public int getProximaJornada() {
+		return proximaJornada;
+	}
+	public void setProximaJornada(int proximaJornada) {
+		this.proximaJornada = proximaJornada;
+	}
 	
 	
 	
 	
 	// Metodos aplicados
-    
+
+
 	// Permite saber si la liga ya contiene la cantidad de equipos esperada
     public boolean ligaCompleta() {
     	if (getEquipos().size() == getNumeroDeEquipos()) {
@@ -135,9 +141,28 @@ public class Liga implements Serializable{
 	public void eliminarCalendario() {
 		calendario.clear();
 		
-		// Falta:
-		// 1. Reiniciar las estadisticas de equipos
-		// 2. Reiniciar el numero de partidos y bonificacion de salario de arbitros
+		equipos.forEach((equipo) -> {
+			equipo.setPuntos(0);
+			equipo.setPartidosJugados(0);
+			equipo.setVictorias(0);
+			equipo.setEmpates(0);
+			equipo.setDerrotas(0);
+			equipo.setGolesAnotados(0);
+			equipo.setGolesRecibidos(0);
+		});
+		
+		Arbitro.federacionArbitros.forEach((arbitro) -> {
+			arbitro.setPartidos(0);
+			arbitro.setSalario(1000);
+		});
+	
+	}
+	
+	public void registrarJornada(Jornada registroJornada) {
+		
+		calendario.set(proximaJornada, registroJornada);
+		
+		proximaJornada++;
 	
 	}
 				    	

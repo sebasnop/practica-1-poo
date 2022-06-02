@@ -58,7 +58,7 @@ public class Menu {
 			System.out.println("Eliminar Un Equipo Existente (presione 2)");
 			System.out.println("Mostrar las Estadisticas Por Equipo (presione 3)");
 			System.out.println("Mostrar La Tabla De La Liga (presione 4)");
-			System.out.println("Anadir un Partido Jugado (presione 5)");
+			System.out.println("Registrar resultados de jornada (presione 5)");
 			System.out.println("Mostrar Calendario y Encontrar un Partido (presione 6)");
 			System.out.println("Consultar Mercado De Jugadores (presione 7)");
 			System.out.println("Generar fixture (presione 8)");
@@ -84,7 +84,7 @@ public class Menu {
 				MostrarTablaLiga();
 				break;
 			case 5:
-				AnadirPartidoJugado();
+				RegistrarResultadosJornada();
 				break;
 			case 6:
 				MostrarCalendario();
@@ -152,106 +152,93 @@ public class Menu {
     	 
 	}
 	
+	private static void RegistrarResultadosJornada() {
+		
+		int numeroJornadaARegistrar = liga.getProximaJornada();
+		List<Jornada> calendario = liga.getCalendario();
+		
+		// Se valida que si haya calendario
+		if ( calendario.isEmpty() ) {
+			
+			System.out.println("Primero se debe generar el calendario");
+			return;
+		
+		// Se valida que todavia no se hayan agregado los resultados de todas las jornadas
+		} else if ( numeroJornadaARegistrar == calendario.size() ) {
+			
+			System.out.println("Ya se han registrado los resultados de todas las jornadas");
+			return;
+		
+		// Luego de todas las validaciones, se procede a ejecutar el codigo
+		} else {
+			
+			Jornada jornadaNoJugada = calendario.get(numeroJornadaARegistrar);
+			Jornada jornadaJugada = new Jornada();
+			
+			PartidoJugado partidoJugado = new PartidoJugado();
+			
+			// Para cada Fixture de la jornadaNoJugada se pediran los goles de los equipos
+			jornadaNoJugada.getPartidos().forEach((partido) -> {
+				
+				EquipoFutbol local = partido.getEquipoLocal();
+				EquipoFutbol visitante = partido.getEquipoVisitante();
+				
+				// Se muestra cual es el partido del que se pediran los goles
+				System.out.println("\n" + local.getNombre() + " vs " + visitante.getNombre() + "\n");
+				
+				// Se piden los goles del equipo local
+				System.out.println("Ingrese los goles del " + local.getNombre() + ": ");
+				String linea = scanner.nextLine();
+				int golesLocal = -1;
+				
+				try {
+					golesLocal = Integer.parseInt(linea);
+				} catch (Exception e) {
+						
+					}
+				
+				if (golesLocal <= -1) {
+					System.out.println("Tienes que ingresar un numero de goles");
+					return;
+				}
 
-	
-	private static void AnadirPartidoJugado(){
-		 System.out.println("Ingrese una Fecha (formato mm-dd-yyyy): ");
-	        String linea = scanner.nextLine();
-	        Date date;
-	        try {
-	            date = new SimpleDateFormat("MM-dd-yyyy").parse(linea);
-	        } catch (ParseException ex) {
-	            System.out.println("Tienes que ingresar una fecha en formato  mm-dd-yyyy");
-	            return;
-	        }
-	        
-	        System.out.println("Ingrese el equipo Local: ");
-	        linea = scanner.nextLine();
-	        EquipoFutbol local = null;
-	        EquipoFutbol equipo =liga.identificarEquipo(linea);
-	        if (liga.equipoPertenece(equipo)) {
-	        	local=equipo;
-	        	
-	        }
-	        if (local==null) {
-	        	 System.out.println("No esta ese equipo en la Liga");
-	              return;
-	          }
-	        
-	        System.out.println("Ingrese el equipo visitante: ");
-	          linea = scanner.nextLine();
-	          EquipoFutbol visitante = null;
-		        EquipoFutbol equipo2 =liga.identificarEquipo(linea);
-		        if (liga.equipoPertenece(equipo2)) {
-		        	visitante=equipo2;
-		        	
-		        	
-	        }
-		        if (visitante == null) {
-		              System.out.println("No esta ese equipo en la liga");
-		              return;
-		          }
-		           
-		           System.out.println("Ingrese goles del equipo local: ");
-		           linea = scanner.nextLine();
-		           int golesLocal = -1;
-		             try {
-		            	 golesLocal= Integer.parseInt(linea);                
-		             } catch (Exception e) { 
-		    }
-		         if (golesLocal == -1) {
-		             System.out.println("tienes que ingresar un numero de goles");
-		             return;
-		         }
-		         
-		         System.out.println("Ingrese goles  del equipo visitante: ");
-		           linea = scanner.nextLine();
-		           int golesVisitante = -1;
-		             try {
-		            	 golesVisitante= Integer.parseInt(linea);                
-		             } catch (Exception e) { 
-		    }
-		         if (golesVisitante == -1) {
-		             System.out.println("tienes que ingresar un numero de goles");
-		             return;
-		         }
-		         
-		         Partido partido = new PartidoJugado();
-		         partido.setEquipoLocal(local);
-		         partido.setEquipoVisitante(visitante);
-		         ((PartidoJugado) partido).setGolesLocal(golesLocal);
-		         ((PartidoJugado) partido).setGolesVisitante(golesVisitante);
-		         liga.getPartidos().add(partido);
-		         local.setGolesAnotados(local.getGolesAnotados()+golesLocal);
-		         visitante.setGolesAnotados(visitante.getGolesAnotados()+golesVisitante);
-		         local.setGolesRecibidos(local.getGolesRecibidos()+golesVisitante);
-		         visitante.setGolesRecibidos(visitante.getGolesRecibidos()+golesLocal);
-		         local.setPartidosJugados(local.getPartidosJugados()+1);
-		         visitante.setPartidosJugados(visitante.getPartidosJugados()+1);
-		         
-		         if (golesLocal> golesVisitante) {            
-		             local.setPuntos(local.getPuntos()+3);
-		             local.setVictorias(local.getVictorias()+1);
-		             visitante.setDerrotas(visitante.getDerrotas()+1);
-		         }
-		         
-		         else if (golesLocal< golesVisitante) {            
-		             visitante.setPuntos(visitante.getPuntos()+3);
-		             visitante.setVictorias(visitante.getVictorias()+1);
-		             local.setDerrotas(local.getDerrotas()+1);
-		         }
-		         else {
-		             local.setPuntos(local.getPuntos()+1);
-		             visitante.setPuntos(visitante.getPuntos()+1);
-		             local.setEmpates(local.getEmpates()+1);
-		             visitante.setEmpates(visitante.getEmpates()+1);
-		         }      
-		    } 
-		         
-	        
-	        
-	
-	
+				// Se piden los goles del equipo visitante
+				System.out.println("Ingrese los goles del " + visitante.getNombre() + ": ");
+				linea = scanner.nextLine();
+				int golesVisitante = -1;
+				
+				try {
+					golesVisitante= Integer.parseInt(linea);                
+				} catch (Exception e) { 
+						
+				}
+				
+				if (golesVisitante <= -1) {
+					System.out.println("Tienes que ingresar un numero de goles");
+					return;
+				}
+				
+				// Se agregan los atributos al partido jugado 
+				partidoJugado.setEquipoLocal(local);
+				partidoJugado.setEquipoVisitante(visitante);
+				partidoJugado.setGolesLocal(golesLocal);
+				partidoJugado.setGolesVisitante(golesVisitante);
+				
+				// luego se agrega el partido jugado en la nueva jornada
+				jornadaJugada.agregarPartido(partidoJugado);
+				
+				// Se registran los partidos en los equipos para actualizar sus estadisticas 
+				local.registrarPartido(golesLocal, golesVisitante);
+				visitante.registrarPartido(golesVisitante, golesLocal);
+				
+			});
+			
+			// Se registra la nueva jornada en la liga
+			liga.registrarJornada(jornadaJugada);
+			
+		}
+		
+	}
 	
 	 private static void MostrarCalendario() {
 	    	System.out.println("Ingrese un anio: ");
@@ -332,16 +319,16 @@ public class Menu {
 	    	
 	    Calendar cal = Calendar.getInstance();
 	    cal.set(Y, M-1, D);
-	       for (Partido p : liga.getPartidos()) {
-	           Calendar cal2 = Calendar.getInstance();
-	           //cal2.setTime(p.getFecha());
-	            if (cal.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) || cal.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)) {
-	                System.out.println(p.getEquipoLocal().getNombre()+ " "+((PartidoJugado) p).getGolesLocal() + " : "+ ((PartidoJugado) p).getGolesVisitante()+ " "+((PartidoJugado) p).getEquipoVisitante().getNombre());
-	            }
-	       }   
+	       //for (Partido p : liga.getPartidos()) {
+	       //    Calendar cal2 = Calendar.getInstance();
+	       //    //cal2.setTime(p.getFecha());
+	       //     if (cal.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) || cal.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)) {
+	       //         System.out.println(p.getEquipoLocal().getNombre()+ " "+((PartidoJugado) p).getGolesLocal() + " : "+ ((PartidoJugado) p).getGolesVisitante()+ " "+((PartidoJugado) p).getEquipoVisitante().getNombre());
+	       //     }
+	       //}   
 	  }
 	    
-	    public  static int dia(int M, int D, int Y) {
+	    public static int dia(int M, int D, int Y) {
 	        int y = Y - (14 - M) / 12;
 	        int x = y + y/4 - y/100 + y/400;
 	        int m = M + 12 * ((14-M) / 12) - 2;
@@ -447,8 +434,8 @@ public class Menu {
 			List<Jornada> jornadas = liga.generarFixture();
 			for(int i=0; i<jornadas.size(); i++){
 			    System.out.println("\n" + "JORNADA " + (i+1));
-			    List<Partido> round = jornadas.get(i).getPartidos();
-			    for(Partido fixture: round){
+			    List<Partido> jornada = jornadas.get(i).getPartidos();
+			    for(Partido fixture: jornada){
 			        System.out.println(fixture);
 			    }
 			    System.out.println("");
@@ -457,11 +444,17 @@ public class Menu {
 		// Si la liga no esta completa
 		} else if (!liga.ligaCompleta()) {
 			System.out.println("Faltan equipos por agregar");
+			return;
 		
 		// Si la liga ya tiene calendario
 		} else {
 			System.out.println("El calendario ya fue creado, no se puede crear nuevamente");
+			return;
 		}
+		
+	}
+	
+	private static void AsignarArbitros() {
 		
 	}
 	

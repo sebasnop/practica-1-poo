@@ -66,7 +66,7 @@ public class Arbitro implements Serializable{
         return a;
 	}
 	
-	public static ArrayList<Arbitro> ListaAleatoreaArbitro(){
+	public static ArrayList<Arbitro> listaAleatoriaArbitros(){
 		ArrayList<Arbitro> arbitrosRandomizer =new ArrayList<>(federacionArbitros);
 		ArrayList<Arbitro> arbitrosAleatorio =new ArrayList<>();
 		Collections.shuffle(arbitrosRandomizer);
@@ -77,6 +77,12 @@ public class Arbitro implements Serializable{
 	@Override
 	public String toString() {
 		return nombre;
+	}
+	
+	public static void reestablecerArbitros () {
+		
+		federacionArbitros.forEach((arbitro) -> arbitro.setPartidos(0) );
+		
 	}
 	
 }
