@@ -455,7 +455,7 @@ public class Menu {
 	}
 	
 	private static void AsignarArbitros() {
-		System.out.println("Hola");
+		System.out.println("Hola otra vez");
 	}
 	
 
