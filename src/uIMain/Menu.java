@@ -1,28 +1,19 @@
 package uIMain;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import java.util.Scanner;
 
-import gestorAplicacion.Arbitro;
 import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
-import gestorAplicacion.Fixture;
 import gestorAplicacion.Jornada;
-import gestorAplicacion.Jugador;
 import gestorAplicacion.Liga;
 import gestorAplicacion.Partido;
 import gestorAplicacion.PartidoJugado;
-import gestorAplicacion.Jugador.Posicion;
 
 
 
@@ -59,10 +50,14 @@ public class Menu {
 			System.out.println("Mostrar las Estadisticas Por Equipo (presione 3)");
 			System.out.println("Mostrar La Tabla De La Liga (presione 4)");
 			System.out.println("Registrar resultados de jornada (presione 5)");
-			System.out.println("Mostrar Calendario y Encontrar un Partido (presione 6)");
+			
+			// Creo que deberiamos quitar la siguiente:
+			System.out.println("Mostrar calendario y Encontrar un Partido (presione 6)");
+			
 			System.out.println("Consultar Mercado De Jugadores (presione 7)");
 			System.out.println("Generar fixture (presione 8)");
-			System.out.println("Salir (presione 9)");
+			System.out.println("Mostrar jornadas (presione 9)");
+			System.out.println("Salir (presione 10)");
 			String linea = scanner.nextLine();
 			int comando = 0;
 			try {
@@ -97,8 +92,12 @@ public class Menu {
 			case 8:
 				GenerarFixture();
 				break;
-				
+			
 			case 9:
+				MostrarJornadas();
+				break;
+				
+			case 10:
 				salir=true;
 				break;
 				
@@ -118,7 +117,6 @@ public class Menu {
     		System.out.println("No se puede agregar mas equipos a la Liga");
     		return;
     	}
-    	
     	EquipoFutbol equipo = new EquipoFutbol();
     	
     	System.out.println("Ingrese el nombre Del equipo");
@@ -148,6 +146,8 @@ public class Menu {
          
          }
     	 
+    	 
+    	 
     	 liga.anadirEquipo(equipo);
     	 
 	}
@@ -174,8 +174,6 @@ public class Menu {
 			
 			Jornada jornadaNoJugada = calendario.get(numeroJornadaARegistrar);
 			Jornada jornadaJugada = new Jornada();
-			
-			PartidoJugado partidoJugado = new PartidoJugado();
 			
 			// Para cada Fixture de la jornadaNoJugada se pediran los goles de los equipos
 			jornadaNoJugada.getPartidos().forEach((partido) -> {
@@ -218,11 +216,8 @@ public class Menu {
 					return;
 				}
 				
-				// Se agregan los atributos al partido jugado 
-				partidoJugado.setEquipoLocal(local);
-				partidoJugado.setEquipoVisitante(visitante);
-				partidoJugado.setGolesLocal(golesLocal);
-				partidoJugado.setGolesVisitante(golesVisitante);
+				// Se crea el partido jugado, solo es tomar el partido sin jugar y agregarle la info de goles
+				PartidoJugado partidoJugado = new PartidoJugado(partido, golesLocal, golesVisitante);
 				
 				// luego se agrega el partido jugado en la nueva jornada
 				jornadaJugada.agregarPartido(partidoJugado);
@@ -426,12 +421,16 @@ public class Menu {
 		}
 	}
 	
-	private static void GenerarFixture() {
+	private static void MostrarJornadas() {
 		
-		// Si la liga aun no tiene calendario y ya fueron agregados todos los equipos
-		if ( liga.getCalendario().isEmpty() && liga.ligaCompleta()) {
+		List<Jornada> jornadas = liga.getCalendario();
+		
+		if (jornadas.isEmpty()) {
 			
-			List<Jornada> jornadas = liga.generarFixture();
+			System.out.println("Aun no se ha generado el Fixture");
+		
+		} else {
+		
 			for(int i=0; i<jornadas.size(); i++){
 			    System.out.println("\n" + "JORNADA " + (i+1));
 			    List<Partido> jornada = jornadas.get(i).getPartidos();
@@ -441,21 +440,37 @@ public class Menu {
 			    System.out.println("");
 			}
 			
+		}
+		
+	}
+	
+	private static void GenerarFixture() {
+		
+		// Si la liga aun no tiene fixture y ya fueron agregados todos los equipos
+		if ( liga.getCalendario().isEmpty() && liga.ligaCompleta()) {
+			
+			liga.generarFixture();
+			MostrarJornadas();
+			
 		// Si la liga no esta completa
 		} else if (!liga.ligaCompleta()) {
 			System.out.println("Faltan equipos por agregar");
 			return;
 		
-		// Si la liga ya tiene calendario
+		// Si la liga ya tiene fixture
 		} else {
-			System.out.println("El calendario ya fue creado, no se puede crear nuevamente");
+			System.out.println("El fixture ya fue creado, no se puede crear nuevamente");
 			return;
 		}
 		
 	}
 	
 	private static void AsignarArbitros() {
-		System.out.println("Hola otra vez");
+		
+	}
+	
+	private static void PredecirResultados() {
+		
 	}
 	
 

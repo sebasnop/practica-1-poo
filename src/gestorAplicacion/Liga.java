@@ -131,11 +131,10 @@ public class Liga implements Serializable{
 	}
 	
 	// Se genera el calendario de partidos
-	public List<Jornada> generarFixture(){
+	public void generarFixture(){
 		GeneradorFixture generadorFixture = new GeneradorFixture();
 		List<Jornada> calendario = generadorFixture.getFixtures(this, true);
 		this.setCalendario(calendario);
-		return this.getCalendario();
 	}
 	
 	public void eliminarCalendario() {

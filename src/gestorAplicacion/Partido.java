@@ -45,7 +45,5 @@ public abstract class Partido implements Serializable {
 		
 	}
 
-	public abstract String mostrarResultado();
-
 }
 

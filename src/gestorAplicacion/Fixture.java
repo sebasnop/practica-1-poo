@@ -39,9 +39,4 @@ public class Fixture extends Partido {
 		arbitro.setPartidos(arbitro.getPartidos()+1);
 	}
 
-	@Override
-	public String mostrarResultado() {
-		return "No se ha jugado aún";
-	}
-
 }
