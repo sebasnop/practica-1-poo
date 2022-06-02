@@ -439,15 +439,32 @@ public class Menu {
 	}
 	
 	private static void GenerarFixture() {
-		List<Jornada> jornadas = liga.generarFixture();
-		for(int i=0; i<jornadas.size(); i++){
-		    System.out.println("\n" + "JORNADA " + (i+1));
-		    List<Partido> round = jornadas.get(i).getPartidos();
-		    for(Partido fixture: round){
-		        System.out.println(fixture);
-		    }
-		    System.out.println("");
+		
+		// Si la liga aun no tiene calendario y ya fueron agregados todos los equipos
+		if ( (liga.getCalendario() == null) && liga.ligaCompleta()) {
+			
+			List<Jornada> jornadas = liga.generarFixture();
+			for(int i=0; i<jornadas.size(); i++){
+			    System.out.println("\n" + "JORNADA " + (i+1));
+			    List<Partido> round = jornadas.get(i).getPartidos();
+			    for(Partido fixture: round){
+			        System.out.println(fixture);
+			    }
+			    System.out.println("");
+			}
+			
+		// Si la liga no esta completa
+		} else if (!liga.ligaCompleta()) {
+			System.out.println("Faltan equipos por agregar");
+		
+		// Si la liga ya tiene calendario
+		} else {
+			System.out.println("El calendario ya fue creado, no se puede crear nuevamente");
 		}
+		
+		
+		
+		
 	}
 	
 
