@@ -68,12 +68,10 @@ public class Arbitro implements Serializable{
 	
 	public static ArrayList<Arbitro> ListaAleatoreaArbitro(){
 		ArrayList<Arbitro> arbitrosRandomizer =new ArrayList<>(federacionArbitros);
-		 ArrayList<Arbitro> arbitrosAleatorio =new ArrayList<>();
-		 Collections.shuffle(arbitrosRandomizer);
-		 arbitrosAleatorio.addAll(arbitrosRandomizer);
-		 return arbitrosAleatorio;
-
-		
+		ArrayList<Arbitro> arbitrosAleatorio =new ArrayList<>();
+		Collections.shuffle(arbitrosRandomizer);
+		arbitrosAleatorio.addAll(arbitrosRandomizer);
+		return arbitrosAleatorio;
 	}
 	 
 	@Override

@@ -20,22 +20,25 @@ public class Liga implements Serializable{
 	private final ArrayList<String> jugadoresDisponibles= new ArrayList<String>();
 	
 	private final Date fechaInicio;
-	private List<Jornada> calendario;
+	private List<Jornada> calendario = new LinkedList<Jornada>();
+	private int proximaJornada;
 	
 	public Liga(int numeroDeEquipos) {
 		
-		String fechaTexto = "31/05/2022";
+		String fechaTexto = "03/06/2022";
 		Date fechaInicio = null;
+		
 		try {
 			fechaInicio = new SimpleDateFormat("dd/MM/yyyy").parse(fechaTexto);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		this.numeroDeEquipos = numeroDeEquipos;
 		this.fechaInicio = fechaInicio;
 		equipos = new LinkedList<EquipoFutbol>();
+		proximaJornada = 0;
+		
 	}
 	
 	
@@ -100,6 +103,7 @@ public class Liga implements Serializable{
 	
 	public void eliminarEquipo(EquipoFutbol equipo) {
 		equipos.remove(equipo);
+		this.eliminarCalendario();
 	}
 	
 	// Retorna la instancia del equipo ingresando su nombre
@@ -121,11 +125,20 @@ public class Liga implements Serializable{
 	}
 	
 	// Se genera el calendario de partidos
-		public List<Jornada> generarFixture(){
-			GeneradorFixture generadorFixture = new GeneradorFixture();
-			List<Jornada> calendario = generadorFixture.getFixtures(this, true);
-			this.setCalendario(calendario);
-			return this.getCalendario();
-		}
+	public List<Jornada> generarFixture(){
+		GeneradorFixture generadorFixture = new GeneradorFixture();
+		List<Jornada> calendario = generadorFixture.getFixtures(this, true);
+		this.setCalendario(calendario);
+		return this.getCalendario();
+	}
+	
+	public void eliminarCalendario() {
+		calendario.clear();
+		
+		// Falta:
+		// 1. Reiniciar las estadisticas de equipos
+		// 2. Reiniciar el numero de partidos y bonificacion de salario de arbitros
+	
+	}
 				    	
 }

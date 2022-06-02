@@ -29,16 +29,20 @@ public abstract class Partido implements Serializable {
 	public Arbitro getArbitro() {
 		return arbitro;
 	}
-	public void setArbitro(Arbitro arbitro) {
-		this.arbitro = arbitro;
-	}
 	
 	// Metodos
 	
 	@Override
 	public String toString() {
-		return  "\n" + getEquipoLocal().getNombre() + " vs " + getEquipoVisitante().getNombre() + "\n" + 
-				getEquipoLocal().getUbicacion();
+		
+		if (arbitro == null) {
+			return  "\n" + getEquipoLocal().getNombre() + " vs " + getEquipoVisitante().getNombre() + "\n" + 
+					getEquipoLocal().getUbicacion();
+		} else {
+			return  "\n" + getEquipoLocal().getNombre() + " vs " + getEquipoVisitante().getNombre() + "\n" + 
+					getEquipoLocal().getUbicacion() + getArbitro();
+		}
+		
 	}
 
 	public abstract String mostrarResultado();

@@ -442,7 +442,7 @@ public class Menu {
 	private static void GenerarFixture() {
 		
 		// Si la liga aun no tiene calendario y ya fueron agregados todos los equipos
-		if ( (liga.getCalendario() == null) && liga.ligaCompleta()) {
+		if ( liga.getCalendario().isEmpty() && liga.ligaCompleta()) {
 			
 			List<Jornada> jornadas = liga.generarFixture();
 			for(int i=0; i<jornadas.size(); i++){
@@ -462,9 +462,6 @@ public class Menu {
 		} else {
 			System.out.println("El calendario ya fue creado, no se puede crear nuevamente");
 		}
-		
-		
-		
 		
 	}
 	

@@ -24,7 +24,6 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 	}
 	public void setPresupuesto(int presupuesto) {
 		this.presupuesto = presupuesto;
-		
 	}
 	public int getVictorias() {
 		return victorias;
@@ -68,10 +67,5 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 	public void setPartidosJugados(int partidosJugados) {
 		this.partidosJugados = partidosJugados;
 	}
-	
-	
-	
-	
-	
 
 }

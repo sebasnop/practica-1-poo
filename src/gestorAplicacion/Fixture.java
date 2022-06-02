@@ -1,7 +1,5 @@
 package gestorAplicacion;
 
-import java.util.Date;
-
 public class Fixture extends Partido {
 
     EquipoFutbol equipoLocal;
@@ -34,6 +32,12 @@ public class Fixture extends Partido {
     public void setEquipoVisitante(EquipoFutbol equipoVisitante) {
         this.equipoVisitante = equipoVisitante;
     }
+
+    // Se coloca solo aqui porque a un PartidoJugado no se le puede reasignar el Arbitro
+	public void setArbitro(Arbitro arbitro) {
+		this.arbitro = arbitro;
+		arbitro.setPartidos(arbitro.getPartidos()+1);
+	}
 
 	@Override
 	public String mostrarResultado() {
