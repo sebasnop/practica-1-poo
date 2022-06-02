@@ -404,7 +404,7 @@ public class Menu {
         if ( liga.equipoPertenece(equipo) ) {
         	System.out.println("Estadisticas del " + equipo.getNombre() + "\n");
         	System.out.println("Partidos Ganados: " + equipo.getVictorias());
-            System.out.println("Partidos Jugados: " + equipo.getDerrotas());
+            System.out.println("Partidos Perdidos: " + equipo.getDerrotas());
             System.out.println("Partidos Empatados: " + equipo.getEmpates());
             System.out.println("Goles Anotados: " + equipo.getGolesAnotados());
             System.out.println("Goles Recibidos: " + equipo.getGolesRecibidos());
@@ -455,7 +455,7 @@ public class Menu {
 	}
 	
 	private static void AsignarArbitros() {
-		
+		System.out.println("Hola otra vez");
 	}
 	
 
