@@ -16,12 +16,11 @@ public class Liga implements Serializable{
 	
 	private final int numeroDeEquipos;
 	private final LinkedList<EquipoFutbol> equipos;
-	private final ArrayList<Partido> partidos;
 	private final ArrayList<Jugador> jugadoresEnVenta= new ArrayList<Jugador>(Arrays.asList(new Jugador("Maradona",Posicion.DL,10000000),new Jugador("Messi",Posicion.DL,20000000),new Jugador("Cristiano Ronaldo",Posicion.DL,20000000),new Jugador("Carles Puyol",Posicion.DF,5000000),new Jugador("Pepe",Posicion.DF,4500000),new Jugador("Rio Ferdinand",Posicion.DF,7000000),new Jugador("Keylor Navas",Posicion.PT,11000000),new Jugador("Manuel Neuer",Posicion.PT,15000000),new Jugador("Oliver Kahn",Posicion.PT,18000000)));
 	private final ArrayList<String> jugadoresDisponibles= new ArrayList<String>();
 	
 	private final Date fechaInicio;
-	private List<List<Fixture>> calendario;
+	private List<Jornada> calendario;
 	
 	public Liga(int numeroDeEquipos) {
 		
@@ -37,25 +36,20 @@ public class Liga implements Serializable{
 		this.numeroDeEquipos = numeroDeEquipos;
 		this.fechaInicio = fechaInicio;
 		equipos = new LinkedList<EquipoFutbol>();
-		partidos = new ArrayList<Partido>();
 	}
 	
 	
 	// Getters y Setters:
 	
-	public ArrayList<Partido> getPartidos() {
-		return partidos;
-	}
-	
     public ArrayList<String> getJugadoresDisponibles() {
 		return jugadoresDisponibles;
 	}
 
-	public List<List<Fixture>> getCalendario() {
+	public List<Jornada> getCalendario() {
 		return calendario;
 	}
 
-	public void setCalendario(List<List<Fixture>> calendario) {
+	public void setCalendario(List<Jornada> calendario) {
 		this.calendario = calendario;
 	}
 
@@ -127,15 +121,11 @@ public class Liga implements Serializable{
 	}
 	
 	// Se genera el calendario de partidos
-	public List<List<Fixture>> generarFixture(){
-		GeneradorFixture generadorFixture = new GeneradorFixture();
-		return generadorFixture.getFixtures(this, true);
-	}
-	
-	// Se genera el calendario de partidos
-		public List<Jornada> generarFixture1(){
-			PruebaGenerador generadorFixture = new PruebaGenerador();
-			return generadorFixture.getFixtures(this, true);
+		public List<Jornada> generarFixture(){
+			GeneradorFixture generadorFixture = new GeneradorFixture();
+			List<Jornada> calendario = generadorFixture.getFixtures(this, true);
+			this.setCalendario(calendario);
+			return this.getCalendario();
 		}
 				    	
 }

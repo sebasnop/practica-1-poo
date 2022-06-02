@@ -95,7 +95,7 @@ public class Menu {
 				break;
 			
 			case 8:
-				GenerarFixture1();
+				GenerarFixture();
 				break;
 				
 			case 9:
@@ -439,20 +439,7 @@ public class Menu {
 	}
 	
 	private static void GenerarFixture() {
-		List<List<Fixture>> jornadas = liga.generarFixture();
-		for(int i=0; i<jornadas.size(); i++){
-		    System.out.println("Jornada " + (i+1));
-		    List<Fixture> round = jornadas.get(i);
-		    for(Fixture fixture: round){
-		        System.out.println(fixture.getEquipoLocal().getNombre() + " vs " + fixture.getEquipoVisitante().getNombre() + 
-		        					" " + fixture.getArbitro().getNombre());
-		    }
-		    System.out.println("");
-		}
-	}
-	
-	private static void GenerarFixture1() {
-		List<Jornada> jornadas = liga.generarFixture1();
+		List<Jornada> jornadas = liga.generarFixture();
 		for(int i=0; i<jornadas.size(); i++){
 		    System.out.println("\n" + "JORNADA " + (i+1));
 		    List<Partido> round = jornadas.get(i).getPartidos();

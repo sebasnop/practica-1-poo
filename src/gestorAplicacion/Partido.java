@@ -1,6 +1,5 @@
 package gestorAplicacion;
 
-import java.util.Date;
 import java.io.Serializable;
 
 
@@ -9,6 +8,9 @@ public abstract class Partido implements Serializable {
 	protected EquipoFutbol equipoLocal;
 	protected EquipoFutbol equipoVisitante;
 	protected Arbitro arbitro;
+	
+	
+	// Getters y Setters
 	
 	public EquipoFutbol getEquipoLocal() {
 		return equipoLocal;
@@ -31,6 +33,13 @@ public abstract class Partido implements Serializable {
 		this.arbitro = arbitro;
 	}
 	
+	// Metodos
+	
+	@Override
+	public String toString() {
+		return  "\n" + getEquipoLocal().getNombre() + " vs " + getEquipoVisitante().getNombre() + "\n" + 
+				getEquipoLocal().getUbicacion();
+	}
 
 	public abstract String mostrarResultado();
 

@@ -39,10 +39,5 @@ public class Fixture extends Partido {
 	public String mostrarResultado() {
 		return "No se ha jugado aún";
 	}
-	
-	public String toString() {
-		return  "\n" + getEquipoLocal().getNombre() + " vs " + getEquipoVisitante().getNombre() + "\n" + 
-				getEquipoLocal().getUbicacion() + " | " + "Arbitro: " + arbitro.getNombre();
-	}
 
 }
