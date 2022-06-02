@@ -415,13 +415,14 @@ public class Menu {
         EquipoFutbol equipo = liga.identificarEquipo(linea);
         
         if ( liga.equipoPertenece(equipo) ) {
-        	System.out.println("Equipo " + equipo.getNombre()+ " Partidos Ganados: " + equipo.getVictorias());
-            System.out.println("Equipo " + equipo.getNombre()+ " Partidos Jugados: " + equipo.getDerrotas());
-            System.out.println("Equipo " + equipo.getNombre()+ " Partidos Empatados: " + equipo.getEmpates());
-            System.out.println("Equipo " + equipo.getNombre()+ " Goles Anotados: " + equipo.getGolesAnotados());
-            System.out.println("Equipo " + equipo.getNombre()+ " Goles Recibidos: " + equipo.getGolesRecibidos());
-            System.out.println("Equipo " + equipo.getNombre()+ " Puntos: " + equipo.getPuntos());
-            System.out.println("Equipo " + equipo.getNombre()+ " Partidos Jugados: " + equipo.getPartidosJugados());
+        	System.out.println("Estadisticas del " + equipo.getNombre() + "\n");
+        	System.out.println("Partidos Ganados: " + equipo.getVictorias());
+            System.out.println("Partidos Jugados: " + equipo.getDerrotas());
+            System.out.println("Partidos Empatados: " + equipo.getEmpates());
+            System.out.println("Goles Anotados: " + equipo.getGolesAnotados());
+            System.out.println("Goles Recibidos: " + equipo.getGolesRecibidos());
+            System.out.println("Puntos: " + equipo.getPuntos());
+            System.out.println("Partidos Jugados: " + equipo.getPartidosJugados());
             return;
         }
         
