@@ -1,5 +1,6 @@
 package gestorAplicacion;
 
+import java.util.ArrayList;
 //import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +19,7 @@ public List<Jornada> getFixtures(Liga liga, boolean incluirFixturesAlReves) {
 
         for (int numeroDeJornada = 0; numeroDeJornada < jornadasTotales; numeroDeJornada++) {
             
-        	Jornada jornada = new Jornada();
+        	Jornada jornada = new Jornada(new ArrayList<Partido>());
             
             for (int partido = 0; partido < partidosPorJornada; partido++) {
             	

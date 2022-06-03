@@ -29,6 +29,10 @@ public class Jugador implements Serializable{
 	public Posicion getPosicion() {
 		return posicion;
 	}
+	
+	public void setPosicion(Posicion posicion) {
+		this.posicion = posicion;
+	}
 	public void setPosicion(String posicion) {
 		this.posicion = Posicion.valueOf(posicion);
 	}

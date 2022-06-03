@@ -80,7 +80,7 @@ public class Menu {
 			System.out.println("Mostrar Equipos (presione 3)");
 			System.out.println("Generar calendario (presione 4)");
 			System.out.println("Mostrar calendario (presione 5)");
-			System.out.println("Asignar arbitros y fechas a los enfrentamientos (presione 6)");
+			System.out.println("Designar arbitros y fechas a los enfrentamientos (presione 6)");
 			System.out.println("Registrar resultados de jornada (presione 7)");
 			System.out.println("Mostrar la tabla de la Liga (presione 8)");
 			System.out.println("Mostrar las estadisticas por Equipo (presione 9)");

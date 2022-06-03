@@ -15,7 +15,7 @@ public class Arbitro implements Serializable{
 	public static ArrayList<Arbitro> federacionArbitros = 
 			new ArrayList <Arbitro> (
 					Arrays.asList(
-					new Arbitro("Howard Webb"), new Arbitro("Pierluigi Collina"), 
+					new Arbitro("Howard Webb", 1200), new Arbitro("Pierluigi Collina"), 
 					new Arbitro("Nestor Pitana"), new Arbitro("Felix Brycht")
 					)
 			);

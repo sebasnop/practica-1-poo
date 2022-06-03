@@ -20,7 +20,7 @@ public class Jornada implements Serializable {
 	}
 	
 	public Jornada () {
-		this.partidos = new ArrayList<Partido>();
+		this(new ArrayList<Partido>());
 	}
 	
 	// Getters y setters
