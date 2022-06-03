@@ -12,14 +12,18 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 	private int partidosJugados;
 	private int presupuesto;
 	
+	public EquipoFutbol(String nombre, String ubicacion, int presupuesto){
+		this.nombre = nombre;
+		this.ubicacion = ubicacion;
+	}
 	
+	public EquipoFutbol(){}
 	
 	public int getPresupuesto() {
 		return presupuesto;
 	}
 	public void setPresupuesto(int presupuesto) {
 		this.presupuesto = presupuesto;
-		
 	}
 	public int getVictorias() {
 		return victorias;
@@ -65,8 +69,30 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 	}
 	
 	
+	// Metodos
 	
-	
-	
+	public void registrarPartido (int golesAnotados, int golesRecibidos) {
+		
+		this.setGolesAnotados(getGolesAnotados() + golesAnotados);
+		this.setGolesRecibidos(getGolesRecibidos() + golesRecibidos);
+		this.setPartidosJugados(getPartidosJugados() + 1);
+		
+		if (golesAnotados > golesRecibidos) {
+			
+			puntos += 3;
+			victorias += 1;
+			
+		} else if (golesAnotados == golesRecibidos) {
+			
+			puntos += 1;
+			empates += 1;
+			
+		} else {
+			
+			derrotas += 1;
+			
+		}
+		
+	}
 
 }

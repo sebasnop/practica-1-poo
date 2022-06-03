@@ -1,40 +1,23 @@
 package gestorAplicacion;
 
-import java.util.Date;
-
 public class PartidoJugado extends Partido {
 	
-	private boolean resena;
 	private int golesLocal;
 	private int golesVisitante;
 	
-	
-
-	public PartidoJugado(int golesLocal, int golesVisitante) {
-		
+	public PartidoJugado(Partido partido, int golesLocal, int golesVisitante) {
+		this.equipoLocal = partido.getEquipoLocal();
+    	this.equipoVisitante = partido.getEquipoVisitante();
+    	this.arbitro = partido.getArbitro();
 		this.golesLocal = golesLocal;
 		this.golesVisitante = golesVisitante;
-		// Borrar partido no jugado de la lista de partidos de la liga
 	}
 	
+	
 	public PartidoJugado() {
-		this(0,0);
+		super();
 	}
-
-	@Override
-	public String mostrarResultado() {
-		
-		return null;
-	}
-
-	public boolean isResena() {
-		return resena;
-	}
-
-	public void setResena(boolean resena) {
-		this.resena = resena;
-	}
-
+	
 	public int getGolesLocal() {
 		return golesLocal;
 	}
@@ -49,6 +32,12 @@ public class PartidoJugado extends Partido {
 
 	public void setGolesVisitante(int golesVisitante) {
 		this.golesVisitante = golesVisitante;
+	}
+	
+	
+	@Override
+	public String toString() {
+			return  "\n" + equipoLocal.getNombre() + " " + golesLocal + " - " + golesVisitante + " " + equipoVisitante.getNombre();
 	}
 
 }
