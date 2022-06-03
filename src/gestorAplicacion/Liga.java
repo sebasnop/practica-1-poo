@@ -1,23 +1,19 @@
 package gestorAplicacion;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import gestorAplicacion.Arbitro;
 import gestorAplicacion.Jugador.Posicion;
 
 public class Liga implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+	
 	private final int numeroDeEquipos;
 	private final LinkedList<EquipoFutbol> equipos;
-	private final ArrayList<Jugador> jugadoresEnVenta= new ArrayList<Jugador>(Arrays.asList(new Jugador("Maradona",Posicion.DL,10000000),new Jugador("Messi",Posicion.DL,20000000),new Jugador("Cristiano Ronaldo",Posicion.DL,20000000),new Jugador("Carles Puyol",Posicion.DF,5000000),new Jugador("Pepe",Posicion.DF,4500000),new Jugador("Rio Ferdinand",Posicion.DF,7000000),new Jugador("Keylor Navas",Posicion.PT,11000000),new Jugador("Manuel Neuer",Posicion.PT,15000000),new Jugador("Oliver Kahn",Posicion.PT,18000000)));
-	private final ArrayList<String> jugadoresDisponibles= new ArrayList<String>();
+	private final ArrayList<Jugador> jugadoresLibres = new ArrayList<Jugador>(Arrays.asList(new Jugador("Maradona",Posicion.DL,10000000),new Jugador("Messi",Posicion.DL,20000000),new Jugador("Cristiano Ronaldo",Posicion.DL,20000000),new Jugador("Carles Puyol",Posicion.DF,5000000),new Jugador("Pepe",Posicion.DF,4500000),new Jugador("Rio Ferdinand",Posicion.DF,7000000),new Jugador("Keylor Navas",Posicion.PT,11000000),new Jugador("Manuel Neuer",Posicion.PT,15000000),new Jugador("Oliver Kahn",Posicion.PT,18000000)));
 	
 	private Date fechaInicio;
 	private List<Jornada> calendario = new LinkedList<Jornada>();
@@ -36,10 +32,6 @@ public class Liga implements Serializable{
 	
 	
 	// Getters y Setters:
-	
-    public ArrayList<String> getJugadoresDisponibles() {
-		return jugadoresDisponibles;
-	}
 
 	public List<Jornada> getCalendario() {
 		return calendario;
@@ -49,8 +41,8 @@ public class Liga implements Serializable{
 		this.calendario = calendario;
 	}
 
-	public ArrayList<Jugador> getJugadoresEnVenta() {
-		return jugadoresEnVenta;
+	public ArrayList<Jugador> getJugadoresLibres() {
+		return jugadoresLibres;
 	}
 	
 	public void setFechaInicio(Date fechaInicio) {

@@ -2,6 +2,8 @@ package gestorAplicacion;
 
 public class PartidoJugado extends Partido {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private int golesLocal;
 	private int golesVisitante;
 	

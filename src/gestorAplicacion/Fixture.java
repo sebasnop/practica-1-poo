@@ -1,6 +1,8 @@
 package gestorAplicacion;
 
 public class Fixture extends Partido {
+	
+	private static final long serialVersionUID = 1L;
 
     EquipoFutbol equipoLocal;
     EquipoFutbol equipoVisitante;

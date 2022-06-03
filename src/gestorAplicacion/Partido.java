@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 public abstract class Partido implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+	
 	protected EquipoFutbol equipoLocal;
 	protected EquipoFutbol equipoVisitante;
 	protected Arbitro arbitro;

@@ -3,6 +3,8 @@ package uIMain;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,12 +12,15 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 
+import baseDatos.Serializador;
 import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
 import gestorAplicacion.Jornada;
+import gestorAplicacion.Jugador;
 import gestorAplicacion.Liga;
 import gestorAplicacion.Partido;
 import gestorAplicacion.PartidoJugado;
+import gestorAplicacion.Jugador.Posicion;
 
 
 
@@ -27,11 +32,38 @@ public class Menu {
 	
 	public static void main(String[] args) {
 		 
-		 
-		EquipoFutbol equipo1 = new EquipoFutbol("Barcelona", "Camp Nou", 100000000);
-		EquipoFutbol equipo2 = new EquipoFutbol("Liverpool", "Anfield", 120000000);
-		EquipoFutbol equipo3 = new EquipoFutbol("Marsella", "Velodrome", 60000000);
-		EquipoFutbol equipo4 = new EquipoFutbol("Dortmund", "Signal Iduna", 300000000);
+		ArrayList<Jugador> plantilla1 = new ArrayList<Jugador>(Arrays.asList(
+				new Jugador("Marc Andre Ter Stegen",Posicion.PT,45000000),
+				new Jugador("Gerard Pique",Posicion.DF,5000000),
+				new Jugador("Gavi",Posicion.MC,60000000),
+				new Jugador("Ansu Fati",Posicion.DL,60000000)
+				));
+		
+		ArrayList<Jugador> plantilla2 = new ArrayList<Jugador>(Arrays.asList(
+				new Jugador("Alisson",Posicion.PT,60000000),
+				new Jugador("Virgil Van Dijk",Posicion.DF,55000000),
+				new Jugador("Fabinho",Posicion.MC,60000000),
+				new Jugador("Luis Diaz",Posicion.DL,45000000)
+				));
+		
+		ArrayList<Jugador> plantilla3 = new ArrayList<Jugador>(Arrays.asList(
+				new Jugador("Pau Lopez",Posicion.PT,12000000),
+				new Jugador("William Saliba",Posicion.DF,30000000),
+				new Jugador("Boubacar Kamara",Posicion.MC,25000000),
+				new Jugador("Cenguiz Under",Posicion.DL,22000000)
+				));
+		
+		ArrayList<Jugador> plantilla4 = new ArrayList<Jugador>(Arrays.asList(
+				new Jugador("Gregor Kobel",Posicion.PT,20000000),
+				new Jugador("Manuel Akanji",Posicion.DF,30000000),
+				new Jugador("Jude Bellingham",Posicion.MC,75000000),
+				new Jugador("Erling Haaland",Posicion.DL,150000000)
+				));
+		
+		EquipoFutbol equipo1 = new EquipoFutbol("Barcelona", "Camp Nou"    , 100000000, plantilla1);
+		EquipoFutbol equipo2 = new EquipoFutbol("Liverpool", "Anfield"     , 120000000, plantilla2);
+		EquipoFutbol equipo3 = new EquipoFutbol("Marsella" , "Velodrome"   , 60000000 , plantilla3);
+		EquipoFutbol equipo4 = new EquipoFutbol("Dortmund" , "Signal Iduna", 300000000, plantilla4);
 		
 		liga.anadirEquipo(equipo1);
 		liga.anadirEquipo(equipo2);
@@ -98,7 +130,7 @@ public class Menu {
 				break;
 				
 			case 11:
-				salir=true;
+				SalirDelSistema();
 				break;
 				
 	
@@ -435,6 +467,11 @@ public class Menu {
 	
 	private static void PredecirResultados() {
 		
+	}
+	
+	private static void SalirDelSistema() {
+		Serializador.serializarTodo(liga);
+		System.exit(0);
 	}
 	
 

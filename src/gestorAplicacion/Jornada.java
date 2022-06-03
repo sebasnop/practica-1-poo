@@ -1,11 +1,14 @@
 package gestorAplicacion;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Jornada {
+public class Jornada implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private int indice;
 	private List<Partido> partidos;
