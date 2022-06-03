@@ -20,7 +20,6 @@ public class Liga implements Serializable{
 	
 	public Liga() {
 		equipos = new LinkedList<EquipoFutbol>();
-		
 	}
 	
 	
@@ -77,11 +76,13 @@ public class Liga implements Serializable{
 
 	public void anadirEquipo(EquipoFutbol equipo) {
     	equipos.add(equipo);
+    	equipo.setLiga(this);
 	}
 	
 	public void eliminarEquipo(EquipoFutbol equipo) {
 		equipos.remove(equipo);
 		this.eliminarCalendario();
+		equipo.setLiga(null);
 	}
 	
 	// Retorna la instancia del equipo ingresando su nombre
@@ -176,6 +177,22 @@ public class Liga implements Serializable{
 		}
 		
 		return numeroProximaJornada;
+		
+	}
+	
+	public ArrayList <Jugador> jugadoresFichables(String posicionTexto, EquipoFutbol equipo) {
+		
+		ArrayList <Jugador> jugadores = new ArrayList <Jugador> ();
+		
+		Posicion posicion = Posicion.valueOf(posicionTexto);
+		
+		jugadoresLibres.forEach((jugador) -> {
+			if ((jugador.getPosicion() == posicion) && (jugador.getValorMercado() <= equipo.getPresupuesto())) {
+				jugadores.add(jugador);
+			}
+		});
+		
+		return jugadores;
 		
 	}
 				    	

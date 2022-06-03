@@ -4,6 +4,8 @@ package uIMain;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
@@ -13,6 +15,8 @@ import baseDatos.Serializador;
 import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
 import gestorAplicacion.Jornada;
+import gestorAplicacion.Jugador;
+import gestorAplicacion.Jugador.Posicion;
 import gestorAplicacion.Liga;
 import gestorAplicacion.Partido;
 import gestorAplicacion.PartidoJugado;
@@ -25,10 +29,10 @@ public class Menu {
 	
 	public static void main(String[] args) {
 		
-		cargar();
+		//cargar();
 		
 		
-		/*ArrayList<Jugador> plantilla1 = new ArrayList<Jugador>(Arrays.asList(
+		ArrayList<Jugador> plantilla1 = new ArrayList<Jugador>(Arrays.asList(
 				new Jugador("Marc Andre Ter Stegen",Posicion.PT,45000000),
 				new Jugador("Gerard Pique",Posicion.DF,5000000),
 				new Jugador("Gavi",Posicion.MC,60000000),
@@ -64,7 +68,7 @@ public class Menu {
 		liga.anadirEquipo(equipo1);
 		liga.anadirEquipo(equipo2);
 		liga.anadirEquipo(equipo3);
-		liga.anadirEquipo(equipo4);*/
+		liga.anadirEquipo(equipo4);
 		
 		boolean salir = false;
 
@@ -78,13 +82,17 @@ public class Menu {
 			System.out.println("Cree un Equipo y anadalo a La Liga (presione 1)");
 			System.out.println("Eliminar un Equipo de la Liga (presione 2)");
 			System.out.println("Mostrar Equipos (presione 3)");
+			System.out.println("");
 			System.out.println("Generar calendario (presione 4)");
 			System.out.println("Mostrar calendario (presione 5)");
 			System.out.println("Designar arbitros y fechas a los enfrentamientos (presione 6)");
+			System.out.println("");
 			System.out.println("Registrar resultados de jornada (presione 7)");
 			System.out.println("Mostrar la tabla de la Liga (presione 8)");
 			System.out.println("Mostrar las estadisticas por Equipo (presione 9)");
-			System.out.println("Consultar mercado de jugadores (presione 10)");
+			System.out.println("");
+			System.out.println("Fichar un jugador (presione 10)");
+			System.out.println("");
 			System.out.println("Salir (presione 11)");
 			String linea = scanner.nextLine();
 			int comando = 0;
@@ -95,38 +103,38 @@ public class Menu {
 	
 			switch(comando) {
 			case 1 :
-				AnadirEquipo();
+				anadirEquipo();
 				break;
 			case 2 :
-				EliminarEquipo();
+				eliminarEquipo();
 				break;
 			case 3 :
-				MostrarEquipos();
+				mostrarEquipos();
 				break;
 			case 4:
-				GenerarCalendario();
+				generarCalendario();
 				break;
 			case 5:
-				MostrarCalendario();
+				mostrarCalendario();
 				break;
 			case 6:
-				AsignarArbitrosFechas();
+				designarArbitrosFechas();
 				break;
 			case 7 :
-				RegistrarResultadosJornada();
+				registrarResultadosJornada();
 				break;
 			case 8:
-				MostrarTablaLiga();
+				mostrarTablaLiga();
 				break;
 			case 9:
-				MostrarEstadisticas();
+				mostrarEstadisticas();
 				break;
 			case 10:
-				MostrarMercado();
+				ficharJugador();
 				break;
 				
 			case 11:
-				SalirDelSistema();
+				salirDelSistema();
 				break;
 				
 	
@@ -139,7 +147,7 @@ public class Menu {
 	
 	}
 	
-	private static void AnadirEquipo() {
+	private static void anadirEquipo() {
     	
     	if ( liga.ligaCompleta() ) {
     		System.out.println("No se puede agregar mas equipos a la Liga");
@@ -174,13 +182,128 @@ public class Menu {
          
          }
     	 
-    	 
-    	 
     	 liga.anadirEquipo(equipo);
     	 
 	}
 	
-	private static void RegistrarResultadosJornada() {
+	
+	private static void eliminarEquipo() {
+		System.out.println("Ingrese el nombre del equipo");
+		String linea = scanner.nextLine();
+		
+		EquipoFutbol equipo = liga.identificarEquipo(linea);
+		
+		if ( liga.equipoPertenece(equipo) ) {
+			liga.eliminarEquipo(equipo);
+			System.out.println("Equipo " + equipo.getNombre() + " eliminado");
+		} else {
+			System.out.println("Ese equipo no esta en la liga");
+		}
+		
+	}
+	
+	
+	private static void mostrarEquipos() {
+		
+		System.out.println("\nEquipos de la Liga: \n");
+		
+		liga.getEquipos().forEach((equipo) -> {
+			System.out.println(equipo.getNombre());
+		});
+		
+		// Si la liga no esta completa
+		if (!liga.ligaCompleta()) {
+			int equiposFaltantes = liga.getNumeroDeEquipos() - liga.getEquipos().size();
+			System.out.println("\n" + "Falta anadir " + equiposFaltantes + " equipos a la Liga" + "\n");
+		}
+		
+	}
+
+	
+	private static void generarCalendario() {
+		
+		// Si la liga aun no tiene fixture y ya fueron agregados todos los equipos
+		if ( liga.getCalendario().isEmpty() && liga.ligaCompleta()) {
+			
+			liga.generarFixture();
+			mostrarCalendario();
+			
+		// Si la liga no esta completa
+		} else if (!liga.ligaCompleta()) {
+			System.out.println("Faltan equipos por agregar");
+			return;
+		
+		// Si la liga ya tiene fixture
+		} else {
+			System.out.println("El calendario ya fue creado, no se puede crear nuevamente");
+			return;
+		}
+		
+	}
+
+	
+	private static void mostrarCalendario() {
+		
+		List<Jornada> jornadas = liga.getCalendario();
+		
+		if (jornadas.isEmpty()) {
+			
+			System.out.println("Aun no se ha generado el Calendario");
+			return;
+		
+		} else {
+				
+			int indiceJornada = 1;
+			
+			for (Jornada jornada: jornadas) {
+				
+				if ( liga.isCalendarioListo() ) {
+					System.out.println("\n" + "JORNADA " + indiceJornada + "\n" + jornada.mostrarFecha());
+				} else {
+					System.out.println("\n" + "JORNADA " + indiceJornada  + "\nFecha por definir");
+				}
+				
+				
+				for (Partido partido: jornada.getPartidos()) {
+					System.out.println(partido);
+				}
+				
+				System.out.println("");
+				indiceJornada++;
+				
+				}
+			
+		}
+		
+	}
+	
+	
+	private static void designarArbitrosFechas() {
+		
+		if (liga.getCalendario().isEmpty()) {
+			System.out.println("El calendario debe ser creado");
+			return;
+		} else {
+			System.out.println("Ingrese la fecha de inicio de la liga: (dd-mm-aaaa)");
+			String linea = scanner.nextLine();
+			
+			Date fechaInicio;
+			
+	        try {
+	        	fechaInicio = new SimpleDateFormat("dd-MM-yyyy").parse(linea);
+	        } catch (ParseException ex) {
+	            System.out.println("Debes ingresar una fecha valida en formato dd-mm-aaaa");
+	            return;
+	        }
+	        
+	        liga.setFechaInicio(fechaInicio);
+	        liga.asignarArbitrosFechas();
+	        mostrarCalendario();
+		}
+		
+	}
+	
+	private static void registrarResultadosJornada() {
 		
 		int numeroJornadaARegistrar = liga.proximaJornada();
 		List<Jornada> calendario = liga.getCalendario();
@@ -265,75 +388,18 @@ public class Menu {
 		}
 		
 	}
-
 	
-	    private static void MostrarMercado() {
-	    	System.out.println("Ingrese el nombre del equipo para consultar presupuesto");
-	    	String linea = scanner.nextLine();
-	    	
-	    	int presupuesto=0;
-	    	EquipoFutbol equipo =liga.identificarEquipo(linea);
-	        if (liga.equipoPertenece(equipo)) {
-	        	presupuesto=equipo.getPresupuesto();
-	        	
-	        }
-	    			
-	    	System.out.println("Ingrese la posicion del jugador");
-	    	 linea = scanner.nextLine();
-	    	 //for (Jugador jugador:liga.getJugadoresEnVenta()) {
-	    		 //try {
-	    		 //if(Posicion.valueOf(linea).equals(linea));
-	    		 
-	    			 
-	    		 
-	    			//liga.getJugadoresDisponibles().add(jugador.getNombre());
-	    		// System.out.println(Posicion.valueOf(linea));
-	    		// }
-	    	//catch(IllegalArgumentException e) {
-	    			//System.out.println("Comando invalido");
-	    			
-	    		//}
-	    		 
-	    		 
-	    	 }
-	    		//System.out.println("Los jugadores que estan disponibles son "+liga.getJugadoresDisponibles());	
-	    		//return;
-	    	//}
-	    	
-	    //}
-
-	private static void EliminarEquipo() {
-		System.out.println("Ingrese el nombre del equipo");
-		String linea = scanner.nextLine();
+	private static void mostrarTablaLiga(){
 		
-		EquipoFutbol equipo = liga.identificarEquipo(linea);
-		
-		if ( liga.equipoPertenece(equipo) ) {
-			liga.eliminarEquipo(equipo);
-			System.out.println("Equipo " + equipo.getNombre() + " eliminado");
-		} else {
-			System.out.println("Ese equipo no esta en la liga");
+		List<EquipoFutbol> equipos = liga.getEquipos();
+   	 
+		Collections.sort(equipos, new Comparador());
+		for(EquipoFutbol equipo : equipos) {
+			System.out.println("Equipo: " + equipo.getNombre()+" Puntos: "+ equipo.getPuntos()+" Diferencia de Gol: "+ (equipo.getGolesAnotados()-equipo.getGolesRecibidos()));
 		}
-		
 	}
 	
-	private static void MostrarEquipos() {
-		
-		System.out.println("\nEquipos de la Liga: \n");
-		
-		liga.getEquipos().forEach((equipo) -> {
-			System.out.println(equipo.getNombre());
-		});
-		
-		// Si la liga no esta completa
-		if (!liga.ligaCompleta()) {
-			int equiposFaltantes = liga.getNumeroDeEquipos() - liga.getEquipos().size();
-			System.out.println("\n" + "Falta anadir " + equiposFaltantes + " equipos a la Liga" + "\n");
-		}
-		
-	}
-	
-	private static void MostrarEstadisticas() {
+	private static void mostrarEstadisticas() {
         
         System.out.println("Ingrese el nombre del equipo: ");
         String linea = scanner.nextLine();
@@ -355,98 +421,60 @@ public class Menu {
         System.out.println("Ese equipo no esta en la liga");
     }
 	
-	private static void MostrarTablaLiga(){
+	private static void ficharJugador () {
+		System.out.println("Ingrese el nombre del equipo");
+		String linea = scanner.nextLine();
 		
-		List<EquipoFutbol> equipos = liga.getEquipos();
-   	 
-		Collections.sort(equipos, new Comparador());
-		for(EquipoFutbol equipo : equipos) {
-			System.out.println("Equipo: " + equipo.getNombre()+" Puntos: "+ equipo.getPuntos()+" Diferencia de Gol: "+ (equipo.getGolesAnotados()-equipo.getGolesRecibidos()));
-		}
+		EquipoFutbol equipo = liga.identificarEquipo(linea);
+    	
+    	if (liga.equipoPertenece(equipo)) {
+    		
+    		System.out.println("Bienvenido " + equipo.getEntrenador().getNombre());
+    		System.out.println("\nEstos son tus jugadores:");
+    		
+    		equipo.getPlantilla().forEach((jugador) -> {
+    			System.out.println(jugador.mostrar());
+    		});
+    		
+    		System.out.println("Ingrese la posicion en la que desea fichar:");
+        	linea = scanner.nextLine();
+        	
+        	ArrayList <Jugador> jugadoresDisponibles = liga.jugadoresFichables(linea, equipo);
+        	
+        	if (jugadoresDisponibles.isEmpty()){
+        		System.out.println("No hay jugadores que puedas fichar en esa posicion :c");
+        		return;
+        	} else {
+        	
+        	System.out.println("\nEstos son los jugadores que puedes fichar:");
+    		
+    		jugadoresDisponibles.forEach((jugador) -> {
+    			System.out.println(jugador.mostrar());
+    		});
+    		
+    		System.out.println("¿Cual vas a fichar? Ingresa el nombre");
+        	String nombre = scanner.nextLine();
+        	
+        	jugadoresDisponibles.forEach((jugador) -> {
+    			if (jugador.getNombre() == nombre) {
+    				equipo.getEntrenador().ficharJugador(jugador);
+    				System.out.println(jugador.getNombre() + " fue fichado.");
+    			}
+    		});
+        	
+        	equipo.getPlantilla().forEach((jugador) -> {
+    			System.out.println(jugador.mostrar());
+    		});
+        	
+    	}
+    	
+    	} else {
+    		System.out.println("El equipo no pertenece a la liga");
+    	}
+    	
 	}
 	
-	private static void MostrarCalendario() {
-		
-		List<Jornada> jornadas = liga.getCalendario();
-		
-		if (jornadas.isEmpty()) {
-			
-			System.out.println("Aun no se ha generado el Calendario");
-			return;
-		
-		} else {
-				
-			int indiceJornada = 1;
-			
-			for (Jornada jornada: jornadas) {
-				
-				if ( liga.isCalendarioListo() ) {
-					System.out.println("\n" + "JORNADA " + indiceJornada + "\n" + jornada.mostrarFecha());
-				} else {
-					System.out.println("\n" + "JORNADA " + indiceJornada  + "\nFecha por definir");
-				}
-				
-				
-				for (Partido partido: jornada.getPartidos()) {
-					System.out.println(partido);
-				}
-				
-				System.out.println("");
-				indiceJornada++;
-				
-				}
-			
-		}
-		
-	}
-	
-	private static void GenerarCalendario() {
-		
-		// Si la liga aun no tiene fixture y ya fueron agregados todos los equipos
-		if ( liga.getCalendario().isEmpty() && liga.ligaCompleta()) {
-			
-			liga.generarFixture();
-			MostrarCalendario();
-			
-		// Si la liga no esta completa
-		} else if (!liga.ligaCompleta()) {
-			System.out.println("Faltan equipos por agregar");
-			return;
-		
-		// Si la liga ya tiene fixture
-		} else {
-			System.out.println("El calendario ya fue creado, no se puede crear nuevamente");
-			return;
-		}
-		
-	}
-	
-	private static void AsignarArbitrosFechas() {
-		
-		if (liga.getCalendario().isEmpty()) {
-			System.out.println("El calendario debe ser creado");
-			return;
-		} else {
-			System.out.println("Ingrese la fecha de inicio de la liga: (dd-mm-aaaa)");
-			String linea = scanner.nextLine();
-			
-			Date fechaInicio;
-			
-	        try {
-	        	fechaInicio = new SimpleDateFormat("dd-MM-yyyy").parse(linea);
-	        } catch (ParseException ex) {
-	            System.out.println("Debes ingresar una fecha valida en formato dd-mm-aaaa");
-	            return;
-	        }
-	        
-	        liga.setFechaInicio(fechaInicio);
-	        liga.asignarArbitrosFechas();
-	        MostrarCalendario();
-		}
-		
-	}
-	
-	private static void PredecirResultados() {
+	private static void predecirResultados() {
 		
 	}
 	
@@ -458,7 +486,7 @@ public class Menu {
 		Deserializador.deserializarTodo(liga);
 	}
 	
-	private static void SalirDelSistema() {
+	private static void salirDelSistema() {
 		guardar();
 		System.exit(0);
 	}

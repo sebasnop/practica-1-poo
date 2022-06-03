@@ -2,7 +2,9 @@ package gestorAplicacion;
 
 import java.io.Serializable;
 
-public class Entrenador implements Serializable {
+import gestorAplicacion.Jugador.Posicion;
+
+public class Entrenador implements Serializable, IntegranteEquipo {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -37,13 +39,14 @@ public class Entrenador implements Serializable {
 	}
 
 	
-	public void ficharJugador (String posicion) {
-		
-		// Solo se puede fichar si el entrenador dirije un equipo
-		if (getEquipo() != null) {
-			
-		}
-		
+	public void ficharJugador (Jugador jugador) {
+		equipo.setPresupuesto(equipo.getPresupuesto()-jugador.getValorMercado());
+		equipo.anadirJugador(jugador);
+	}
+
+	@Override
+	public String mostrar() {
+		return this.getNombre();
 	}
 
 }

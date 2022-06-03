@@ -15,7 +15,10 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 	private int partidosJugados;
 	private int presupuesto;
 	
-	private ArrayList<Jugador> plantilla;
+	private final ArrayList<Jugador> plantilla;
+	private Entrenador entrenador;
+	
+	private Liga liga;
 	
 	public EquipoFutbol(String nombre, String ubicacion, int presupuesto){
 		this(nombre, ubicacion, presupuesto, new ArrayList<Jugador>());
@@ -26,9 +29,16 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 		this.ubicacion = ubicacion;
 		this.presupuesto = presupuesto;
 		this.plantilla = plantilla;
+		
+		plantilla.forEach((jugador) -> {
+			jugador.setEquipo(this);
+		});
+		
 	}
 	
-	public EquipoFutbol(){}
+	public EquipoFutbol(){
+		plantilla = new ArrayList<Jugador>();
+	}
 	
 	public int getPresupuesto() {
 		return presupuesto;
@@ -82,10 +92,27 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 	public ArrayList<Jugador> getPlantilla() {
 		return plantilla;
 	}
-	public void setPlantilla(ArrayList<Jugador> plantilla) {
-		this.plantilla = plantilla;
+	
+	public Entrenador getEntrenador() {
+		return entrenador;
+	}
+	public void setEntrenador(Entrenador entrenador) {
+		
+		if (this.entrenador != null) {
+			this.entrenador.setEquipo(null);
+		}
+		
+		entrenador.setEquipo(this);
+		this.entrenador = entrenador;
+	
 	}
 	
+	public Liga getLiga() {
+		return liga;
+	}
+	public void setLiga(Liga liga) {
+		this.liga = liga;
+	}
 	
 	// Metodos
 
@@ -111,6 +138,11 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 			
 		}
 		
+	}
+	
+	public void anadirJugador (Jugador jugador) {
+		plantilla.add(jugador);
+		jugador.setEquipo(this);
 	}
 
 }
