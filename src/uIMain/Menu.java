@@ -33,7 +33,7 @@ public class Menu {
 		 //EquipoFutbol equipo3 = new EquipoFutbol("Marsella", "Velodrome", 60000000);
 		 //EquipoFutbol equipo4 = new EquipoFutbol("Dortmund", "Signal Iduna", 300000000);
 		
-		 //liga.anadirEquipo(equipo1);
+		// liga.anadirEquipo(equipo1);
 		 //liga.anadirEquipo(equipo2);
 		 //liga.anadirEquipo(equipo3);
 		 //liga.anadirEquipo(equipo4);
