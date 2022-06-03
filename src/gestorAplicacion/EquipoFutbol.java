@@ -26,6 +26,7 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 	public EquipoFutbol(String nombre, String ubicacion, int presupuesto){
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
+		Equipos.add(this);
 	}
 	
 	public EquipoFutbol(){}
