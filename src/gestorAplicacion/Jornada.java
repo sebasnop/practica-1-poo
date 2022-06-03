@@ -1,6 +1,7 @@
 package gestorAplicacion;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -19,7 +20,7 @@ public class Jornada implements Serializable {
 	}
 	
 	public Jornada () {
-		this.partidos = new LinkedList<Partido>();
+		this.partidos = new ArrayList<Partido>();
 	}
 	
 	// Getters y setters

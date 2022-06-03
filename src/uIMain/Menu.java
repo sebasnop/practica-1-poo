@@ -6,12 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 
+import baseDatos.Deserializador;
 import baseDatos.Serializador;
 import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
@@ -22,8 +23,6 @@ import gestorAplicacion.Partido;
 import gestorAplicacion.PartidoJugado;
 import gestorAplicacion.Jugador.Posicion;
 
-
-
 public class Menu {
 	
 	static Scanner scanner = new Scanner(System.in);
@@ -31,7 +30,10 @@ public class Menu {
 	static Liga liga = new Liga(4);
 	
 	public static void main(String[] args) {
-		 
+		
+		cargar();
+		
+		/*
 		ArrayList<Jugador> plantilla1 = new ArrayList<Jugador>(Arrays.asList(
 				new Jugador("Marc Andre Ter Stegen",Posicion.PT,45000000),
 				new Jugador("Gerard Pique",Posicion.DF,5000000),
@@ -68,7 +70,7 @@ public class Menu {
 		liga.anadirEquipo(equipo1);
 		liga.anadirEquipo(equipo2);
 		liga.anadirEquipo(equipo3);
-		liga.anadirEquipo(equipo4);
+		liga.anadirEquipo(equipo4);*/
 		
 		boolean salir = false;
 
@@ -360,7 +362,7 @@ public class Menu {
 	
 	private static void MostrarTablaLiga(){
 		
-		LinkedList<EquipoFutbol> equipos = liga.getEquipos();
+		List<EquipoFutbol> equipos = liga.getEquipos();
    	 
 		Collections.sort(equipos, new Comparador());
 		for(EquipoFutbol equipo : equipos) {
@@ -469,8 +471,16 @@ public class Menu {
 		
 	}
 	
-	private static void SalirDelSistema() {
+	public static void guardar() {
 		Serializador.serializarTodo(liga);
+	}
+
+	public static void cargar() {
+		Deserializador.deserializarTodo(liga);
+	}
+	
+	private static void SalirDelSistema() {
+		guardar();
 		System.exit(0);
 	}
 	
