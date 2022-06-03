@@ -1,20 +1,31 @@
 package baseDatos;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
 import java.util.List;
 
+import gestorAplicacion.Arbitro;
+import gestorAplicacion.Liga;
 
-import gestorAplicacion.EquipoFutbol;
-
-
-
+/**
+ * Clase para deserializar los objetos que se crearon en ejecucion
+ * @author Sebastian Valencia
+ * @author Mateo Canavera
+ */
 public class Deserializador {
+	/**
+	 * Utilizamos clases genericas para permitir reutilizar la funcion para todas
+	 * las clases del proyecto
+	 * 
+	 * @param <E>       el generico se usa para poder agredar las clases que se
+	 *                  crearon
+	 * @param lista     Una lista de objetos
+	 * @param className El nombre de la clase que queremos usar como nombre del
+	 *                  archivo
+	 */
 	public static <E> void deserializador(List<E> list, String className) {
 		FileInputStream fileIn;
 		try {
@@ -33,7 +44,8 @@ public class Deserializador {
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 
 			// Lee el listado de elementos
-			ArrayList<E> listado = (ArrayList<E>) in.readObject();
+			
+			List<E> listado = (List<E>) in.readObject();
 
 			// Recorro el ArrayList
 			for (E el : listado) {
@@ -56,9 +68,12 @@ public class Deserializador {
 	}
 
 	/**
-	 * Funcion para deserializar toda la aplicacion Generic IT
+	 * Funcion para deserializar toda la aplicacion
 	 */
-	public static void deserializarTodo() {
-		Serializador.serializar(EquipoFutbol.getEquipos(), "Equipos");
+	public static void deserializarTodo(Liga liga) {
+		Deserializador.deserializador(liga.getEquipos(), "Equipos");
+		Deserializador.deserializador(liga.getCalendario(), "Calendario");
+		Deserializador.deserializador(liga.getJugadoresLibres(), "JugadoresLibres");
+		Deserializador.deserializador(Arbitro.federacionArbitros, "Arbitros");
 	}
 }
