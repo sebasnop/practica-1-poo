@@ -3,10 +3,6 @@ package uIMain;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 import java.util.Date;
@@ -17,24 +13,22 @@ import baseDatos.Serializador;
 import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
 import gestorAplicacion.Jornada;
-import gestorAplicacion.Jugador;
 import gestorAplicacion.Liga;
 import gestorAplicacion.Partido;
 import gestorAplicacion.PartidoJugado;
-import gestorAplicacion.Jugador.Posicion;
 
 public class Menu {
 	
 	static Scanner scanner = new Scanner(System.in);
 
-	static Liga liga = new Liga(4);
+	static Liga liga = new Liga();
 	
 	public static void main(String[] args) {
 		
 		cargar();
 		
-		/*
-		ArrayList<Jugador> plantilla1 = new ArrayList<Jugador>(Arrays.asList(
+		
+		/*ArrayList<Jugador> plantilla1 = new ArrayList<Jugador>(Arrays.asList(
 				new Jugador("Marc Andre Ter Stegen",Posicion.PT,45000000),
 				new Jugador("Gerard Pique",Posicion.DF,5000000),
 				new Jugador("Gavi",Posicion.MC,60000000),
@@ -188,7 +182,7 @@ public class Menu {
 	
 	private static void RegistrarResultadosJornada() {
 		
-		int numeroJornadaARegistrar = liga.getProximaJornada();
+		int numeroJornadaARegistrar = liga.proximaJornada();
 		List<Jornada> calendario = liga.getCalendario();
 		
 		// Se valida que si haya calendario completo
@@ -262,6 +256,7 @@ public class Menu {
 				
 			});
 			
+			jornadaJugada.setJugada(true);
 			jornadaJugada.setFecha(jornadaNoJugada.getFecha());
 			jornadaJugada.setIndice(jornadaNoJugada.getIndice());
 			// Se registra la nueva jornada en la liga
@@ -380,42 +375,26 @@ public class Menu {
 			return;
 		
 		} else {
+				
+			int indiceJornada = 1;
 			
-			if ( liga.isCalendarioListo() ) {
+			for (Jornada jornada: jornadas) {
 				
-				int indiceJornada = 1;
-				
-				for (Jornada jornada: jornadas) {
-					
+				if ( liga.isCalendarioListo() ) {
 					System.out.println("\n" + "JORNADA " + indiceJornada + "\n" + jornada.mostrarFecha());
-					
-					for (Partido partido: jornada.getPartidos()) {
-						System.out.println(partido);
-					}
-					
-					System.out.println("");
-					indiceJornada++;
-					
-				}
-				
-			} else {
-				
-				int indiceJornada = 1;
-				
-				for (Jornada jornada: jornadas) {
-					
+				} else {
 					System.out.println("\n" + "JORNADA " + indiceJornada  + "\nFecha por definir");
-					
-					for (Partido fixture: jornada.getPartidos()) {
-						System.out.println(fixture);
-					}
-					
-					System.out.println("");
-					indiceJornada++;
-					
 				}
 				
-			}
+				
+				for (Partido partido: jornada.getPartidos()) {
+					System.out.println(partido);
+				}
+				
+				System.out.println("");
+				indiceJornada++;
+				
+				}
 			
 		}
 		

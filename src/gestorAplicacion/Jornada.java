@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Jornada implements Serializable {
@@ -14,6 +13,7 @@ public class Jornada implements Serializable {
 	private int indice;
 	private List<Partido> partidos;
 	private Date fecha;
+	private boolean jugada;
 	
 	public Jornada (List<Partido> partidos) {
 		this.partidos = partidos;
@@ -46,9 +46,16 @@ public class Jornada implements Serializable {
 		this.fecha = fecha;
 	}
 	
+	public boolean isJugada() {
+		return jugada;
+	}
+	public void setJugada(boolean jugada) {
+		this.jugada = jugada;
+	}
+	
 	
 	// Metodos
-	
+
 	public void agregarPartido(Partido partido) {
 		partidos.add(partido);
 	}

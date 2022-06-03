@@ -11,22 +11,15 @@ public class Liga implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private final int numeroDeEquipos;
+	private final int NUMERO_DE_EQUIPOS = 4;
 	private final LinkedList<EquipoFutbol> equipos;
 	private final ArrayList<Jugador> jugadoresLibres = new ArrayList<Jugador>(Arrays.asList(new Jugador("Maradona",Posicion.DL,10000000),new Jugador("Messi",Posicion.DL,20000000),new Jugador("Cristiano Ronaldo",Posicion.DL,20000000),new Jugador("Carles Puyol",Posicion.DF,5000000),new Jugador("Pepe",Posicion.DF,4500000),new Jugador("Rio Ferdinand",Posicion.DF,7000000),new Jugador("Keylor Navas",Posicion.PT,11000000),new Jugador("Manuel Neuer",Posicion.PT,15000000),new Jugador("Oliver Kahn",Posicion.PT,18000000)));
 	
 	private Date fechaInicio;
 	private List<Jornada> calendario = new LinkedList<Jornada>();
-	private int proximaJornada;
 	
-	// El calendario esta listo cuando este generado y se le asignen fechas y arbitros
-	private boolean calendarioListo = false;
-	
-	public Liga(int numeroDeEquipos) {
-		
-		this.numeroDeEquipos = numeroDeEquipos;
+	public Liga() {
 		equipos = new LinkedList<EquipoFutbol>();
-		proximaJornada = 0;
 		
 	}
 	
@@ -57,21 +50,7 @@ public class Liga implements Serializable{
 	}
 
 	public int getNumeroDeEquipos() {
-		return numeroDeEquipos;
-	}
-    
-	public int getProximaJornada() {
-		return proximaJornada;
-	}
-	public void setProximaJornada(int proximaJornada) {
-		this.proximaJornada = proximaJornada;
-	}
-
-	public boolean isCalendarioListo() {
-		return calendarioListo;
-	}
-	public void setCalendarioListo(boolean calendarioListo) {
-		this.calendarioListo = calendarioListo;
+		return NUMERO_DE_EQUIPOS;
 	}
 	
 	
@@ -124,7 +103,6 @@ public class Liga implements Serializable{
 	
 	public void eliminarCalendario() {
 		calendario.clear();
-		this.setCalendarioListo(false);
 		
 		equipos.forEach((equipo) -> {
 			equipo.setPuntos(0);
@@ -145,9 +123,7 @@ public class Liga implements Serializable{
 	
 	public void registrarJornada(Jornada registroJornada) {
 		
-		calendario.set(proximaJornada, registroJornada);
-		
-		proximaJornada++;
+		calendario.set(proximaJornada(), registroJornada);
 	
 	}
 	
@@ -177,7 +153,29 @@ public class Liga implements Serializable{
 			
 		}
 		
-		this.setCalendarioListo(true);
+	}
+	
+	public boolean isCalendarioListo () {
+		if (calendario.isEmpty()) {
+			return false;
+		} else if (calendario.get(0).getFecha() != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public int proximaJornada () {
+		
+		int numeroProximaJornada = 0;
+		
+		for (Jornada jornada: calendario) {
+			if (jornada.isJugada()) {
+				numeroProximaJornada++;
+			}
+		}
+		
+		return numeroProximaJornada;
 		
 	}
 				    	
