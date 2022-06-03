@@ -1,7 +1,7 @@
 package gestorAplicacion;
 import java.io.Serializable;
 
-public class Jugador implements Serializable{
+public class Jugador implements Serializable, IntegrantesPartido{
 	
 	public static enum Posicion {PT, DF, MC, DL};
 	
@@ -36,6 +36,16 @@ public class Jugador implements Serializable{
 	}
 	public void setValorMercado(int valorMercado) {
 		this.valorMercado = valorMercado;
+	}
+	@Override
+	public int predecirResultadoLocal() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int predecirResultadoVisitante() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

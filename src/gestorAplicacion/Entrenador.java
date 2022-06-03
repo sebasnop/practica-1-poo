@@ -1,6 +1,6 @@
 package gestorAplicacion;
 
-public class Entrenador {
+public class Entrenador implements IntegrantesPartido {
 	
 	private String nombre;
 	private EquipoFutbol equipo;
@@ -40,6 +40,18 @@ public class Entrenador {
 			
 		}
 		
+	}
+
+	@Override
+	public int predecirResultadoLocal() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int predecirResultadoVisitante() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

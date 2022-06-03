@@ -1,8 +1,11 @@
 package gestorAplicacion;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+
 public class EquipoFutbol extends ClubDeportivo implements Serializable {
-	
+	private static final long serialVersionUID = 1L;
 	private int victorias;
 	private int empates;
 	private int derrotas;
@@ -11,7 +14,15 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 	private int puntos;
 	private int partidosJugados;
 	private int presupuesto;
+	private static ArrayList<EquipoFutbol> Equipos = new ArrayList<EquipoFutbol>();
 	
+	
+	public static ArrayList<EquipoFutbol> getEquipos() {
+		return Equipos;
+	}
+
+	
+
 	public EquipoFutbol(String nombre, String ubicacion, int presupuesto){
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;

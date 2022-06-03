@@ -8,6 +8,8 @@ import java.util.Collections;
 
 import java.util.Scanner;
 
+import baseDatos.Deserializador;
+import baseDatos.Serializador;
 import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
 import gestorAplicacion.Jornada;
@@ -24,18 +26,19 @@ public class Menu {
 	static Liga liga = new Liga(4);
 	
 	public static void main(String[] args) {
+		 Deserializador.deserializarTodo();
 		 
-		 
-		EquipoFutbol equipo1 = new EquipoFutbol("Barcelona", "Camp Nou", 100000000);
-		EquipoFutbol equipo2 = new EquipoFutbol("Liverpool", "Anfield", 120000000);
-		EquipoFutbol equipo3 = new EquipoFutbol("Marsella", "Velodrome", 60000000);
-		EquipoFutbol equipo4 = new EquipoFutbol("Dortmund", "Signal Iduna", 300000000);
+		//EquipoFutbol equipo1 = new EquipoFutbol("Barcelona", "Camp Nou", 100000000);
+		//EquipoFutbol equipo2 = new EquipoFutbol("Liverpool", "Anfield", 120000000);
+		 //EquipoFutbol equipo3 = new EquipoFutbol("Marsella", "Velodrome", 60000000);
+		 //EquipoFutbol equipo4 = new EquipoFutbol("Dortmund", "Signal Iduna", 300000000);
 		
-		liga.anadirEquipo(equipo1);
-		liga.anadirEquipo(equipo2);
-		liga.anadirEquipo(equipo3);
-		liga.anadirEquipo(equipo4);
+		 //liga.anadirEquipo(equipo1);
+		 //liga.anadirEquipo(equipo2);
+		 //liga.anadirEquipo(equipo3);
+		 //liga.anadirEquipo(equipo4);
 		
+		Serializador.serializarTodo();
 		boolean salir = false;
 
 		while(!salir) {
@@ -82,7 +85,7 @@ public class Menu {
 				RegistrarResultadosJornada();
 				break;
 			case 6:
-				MostrarCalendario();
+				//MostrarCalendario();
 				break;
 	
 			case 7:
@@ -235,108 +238,7 @@ public class Menu {
 		
 	}
 	
-	 private static void MostrarCalendario() {
-	    	System.out.println("Ingrese un anio: ");
-	    	String linea = scanner.nextLine();
-	    	int Y= -7777;
-	    	try {
-	    		Y=Integer.parseInt(linea);
-	    	} catch (Exception e) {
-	    			
-	  }
-	    	if (Y== -7777) {
-	    		System.out.println("Tienes que ingresar un anio");
-	    		return;	
-	    		
-	    	}
-	    	
-	    	System.out.println("Ingrese un mes: ");
-	    	 linea = scanner.nextLine();
-	    	int M= 0;
-	    	try {
-	    		M=Integer.parseInt(linea);
-	    	} catch (Exception e) {
-	    			
-	  }
-	    	if (M== 0) {
-	    		System.out.println("Tienes que ingresar un mes");
-	    		return;	
-	    		
-	    	}
-	    
-	    	String [] meses= {
-	   "",// mes 0 no existe
-	   "Enero","Febrero","Marzo",
-	   "Abril","Mayo","Junio",
-	   "Julio","Agosto","Septiembre",
-	   "Octubre","Noviembre","Diciembre"};
-	    	
-	    	
-	    	int [] dias= { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	    	
-	    	
-	    	if (M==2 &&  isLeapYear(Y)) dias [M]=29;
-	    	
-	    	System.out.println("    "+ meses[M] + " " +Y);
-	    	System.out.println("D  Lu  Ma  M  J  V  S");
-	    	
-	    	int  d= dia(M,1,Y);
-	    	String espacio = "";
-	    	
-	    	for(int i =0; i< d; i++)
-	    		System.out.print("   ");
-	    	for (int i=1; i<= dias[M]; i++) {
-	    		if (i<10)
-	    			System.out.print(i +"  ");
-	    		
-	    		else
-	    			System.out.print(i+" ");
-	    		
-	    		if(((i+d) % 7==0) || (i== dias[M])) System.out.println();
-	    		
-	    		
-	    		
-	    	}
-	    	
-	    	System.out.println("Ingrese un dia: ");
-	    	linea = scanner.nextLine();
-	    	int D =0;
-	    	
-	    	try {
-	    		D=Integer.parseInt(linea);
-	    	}	catch(Exception e) {
-	    
-	    	}
-	    if (D==0 || dias[M] < D) {
-	    	System.out.println("Tienes que ingresas un dia del mes");
-	    	return;
-	    }
-	    	
-	    Calendar cal = Calendar.getInstance();
-	    cal.set(Y, M-1, D);
-	       //for (Partido p : liga.getPartidos()) {
-	       //    Calendar cal2 = Calendar.getInstance();
-	       //    //cal2.setTime(p.getFecha());
-	       //     if (cal.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) || cal.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)) {
-	       //         System.out.println(p.getEquipoLocal().getNombre()+ " "+((PartidoJugado) p).getGolesLocal() + " : "+ ((PartidoJugado) p).getGolesVisitante()+ " "+((PartidoJugado) p).getEquipoVisitante().getNombre());
-	       //     }
-	       //}   
-	  }
-	    
-	    public static int dia(int M, int D, int Y) {
-	        int y = Y - (14 - M) / 12;
-	        int x = y + y/4 - y/100 + y/400;
-	        int m = M + 12 * ((14-M) / 12) - 2;
-	        int d = (D + x + (31*m)/12) % 7;
-	        return d;
-	    }
-	    
-	    public  static boolean isLeapYear(int year) {
-	        
-	        if ((year % 4 ==0) && (year % 100 !=0 )) return true;
-	        if (year % 400 == 0) return true;
-	        return false;  
-}
+	
 	    
 	    
 	    private static void MostrarMercado() {
