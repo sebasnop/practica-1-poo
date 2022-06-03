@@ -1,19 +1,26 @@
 package uIMain;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Collections;
-
+import java.util.Date;
 import java.util.Scanner;
 
+import baseDatos.Serializador;
 import gestorAplicacion.Comparador;
 import gestorAplicacion.EquipoFutbol;
 import gestorAplicacion.Jornada;
+import gestorAplicacion.Jugador;
 import gestorAplicacion.Liga;
 import gestorAplicacion.Partido;
 import gestorAplicacion.PartidoJugado;
+import gestorAplicacion.Jugador.Posicion;
 
 
 
@@ -25,11 +32,38 @@ public class Menu {
 	
 	public static void main(String[] args) {
 		 
-		 
-		EquipoFutbol equipo1 = new EquipoFutbol("Barcelona", "Camp Nou", 100000000);
-		EquipoFutbol equipo2 = new EquipoFutbol("Liverpool", "Anfield", 120000000);
-		EquipoFutbol equipo3 = new EquipoFutbol("Marsella", "Velodrome", 60000000);
-		EquipoFutbol equipo4 = new EquipoFutbol("Dortmund", "Signal Iduna", 300000000);
+		ArrayList<Jugador> plantilla1 = new ArrayList<Jugador>(Arrays.asList(
+				new Jugador("Marc Andre Ter Stegen",Posicion.PT,45000000),
+				new Jugador("Gerard Pique",Posicion.DF,5000000),
+				new Jugador("Gavi",Posicion.MC,60000000),
+				new Jugador("Ansu Fati",Posicion.DL,60000000)
+				));
+		
+		ArrayList<Jugador> plantilla2 = new ArrayList<Jugador>(Arrays.asList(
+				new Jugador("Alisson",Posicion.PT,60000000),
+				new Jugador("Virgil Van Dijk",Posicion.DF,55000000),
+				new Jugador("Fabinho",Posicion.MC,60000000),
+				new Jugador("Luis Diaz",Posicion.DL,45000000)
+				));
+		
+		ArrayList<Jugador> plantilla3 = new ArrayList<Jugador>(Arrays.asList(
+				new Jugador("Pau Lopez",Posicion.PT,12000000),
+				new Jugador("William Saliba",Posicion.DF,30000000),
+				new Jugador("Boubacar Kamara",Posicion.MC,25000000),
+				new Jugador("Cenguiz Under",Posicion.DL,22000000)
+				));
+		
+		ArrayList<Jugador> plantilla4 = new ArrayList<Jugador>(Arrays.asList(
+				new Jugador("Gregor Kobel",Posicion.PT,20000000),
+				new Jugador("Manuel Akanji",Posicion.DF,30000000),
+				new Jugador("Jude Bellingham",Posicion.MC,75000000),
+				new Jugador("Erling Haaland",Posicion.DL,150000000)
+				));
+		
+		EquipoFutbol equipo1 = new EquipoFutbol("Barcelona", "Camp Nou"    , 100000000, plantilla1);
+		EquipoFutbol equipo2 = new EquipoFutbol("Liverpool", "Anfield"     , 120000000, plantilla2);
+		EquipoFutbol equipo3 = new EquipoFutbol("Marsella" , "Velodrome"   , 60000000 , plantilla3);
+		EquipoFutbol equipo4 = new EquipoFutbol("Dortmund" , "Signal Iduna", 300000000, plantilla4);
 		
 		liga.anadirEquipo(equipo1);
 		liga.anadirEquipo(equipo2);
@@ -45,19 +79,17 @@ public class Menu {
 			System.out.println("|         La Liga     |");
 			System.out.println("----------------------");
 			System.out.println("");
-			System.out.println("Cree Un Nuevo Equipo Y Anadalo A La Liga (presione 1)");
-			System.out.println("Eliminar Un Equipo Existente (presione 2)");
-			System.out.println("Mostrar las Estadisticas Por Equipo (presione 3)");
-			System.out.println("Mostrar La Tabla De La Liga (presione 4)");
-			System.out.println("Registrar resultados de jornada (presione 5)");
-			
-			// Creo que deberiamos quitar la siguiente:
-			System.out.println("Mostrar calendario y Encontrar un Partido (presione 6)");
-			
-			System.out.println("Consultar Mercado De Jugadores (presione 7)");
-			System.out.println("Generar fixture (presione 8)");
-			System.out.println("Mostrar jornadas (presione 9)");
-			System.out.println("Salir (presione 10)");
+			System.out.println("Cree un Equipo y anadalo a La Liga (presione 1)");
+			System.out.println("Eliminar un Equipo de la Liga (presione 2)");
+			System.out.println("Mostrar Equipos (presione 3)");
+			System.out.println("Generar calendario (presione 4)");
+			System.out.println("Mostrar calendario (presione 5)");
+			System.out.println("Asignar arbitros y fechas a los enfrentamientos (presione 6)");
+			System.out.println("Registrar resultados de jornada (presione 7)");
+			System.out.println("Mostrar la tabla de la Liga (presione 8)");
+			System.out.println("Mostrar las estadisticas por Equipo (presione 9)");
+			System.out.println("Consultar mercado de jugadores (presione 10)");
+			System.out.println("Salir (presione 11)");
 			String linea = scanner.nextLine();
 			int comando = 0;
 			try {
@@ -73,32 +105,32 @@ public class Menu {
 				EliminarEquipo();
 				break;
 			case 3 :
-				MostrarEstadisticas();
+				MostrarEquipos();
 				break;
-			case 4 :
-				MostrarTablaLiga();
+			case 4:
+				GenerarCalendario();
 				break;
 			case 5:
-				RegistrarResultadosJornada();
-				break;
-			case 6:
 				MostrarCalendario();
 				break;
-	
-			case 7:
+			case 6:
+				AsignarArbitrosFechas();
+				break;
+			case 7 :
+				RegistrarResultadosJornada();
+				break;
+			case 8:
+				MostrarTablaLiga();
+				break;
+			case 9:
+				MostrarEstadisticas();
+				break;
+			case 10:
 				MostrarMercado();
 				break;
-			
-			case 8:
-				GenerarFixture();
-				break;
-			
-			case 9:
-				MostrarJornadas();
-				break;
 				
-			case 10:
-				salir=true;
+			case 11:
+				SalirDelSistema();
 				break;
 				
 	
@@ -157,10 +189,10 @@ public class Menu {
 		int numeroJornadaARegistrar = liga.getProximaJornada();
 		List<Jornada> calendario = liga.getCalendario();
 		
-		// Se valida que si haya calendario
-		if ( calendario.isEmpty() ) {
+		// Se valida que si haya calendario completo
+		if ( !liga.isCalendarioListo() ) {
 			
-			System.out.println("Primero se debe generar el calendario");
+			System.out.println("Primero se debe generar el calendario y asignarle arbitros y fechas");
 			return;
 		
 		// Se valida que todavia no se hayan agregado los resultados de todas las jornadas
@@ -228,117 +260,16 @@ public class Menu {
 				
 			});
 			
+			jornadaJugada.setFecha(jornadaNoJugada.getFecha());
+			jornadaJugada.setIndice(jornadaNoJugada.getIndice());
 			// Se registra la nueva jornada en la liga
 			liga.registrarJornada(jornadaJugada);
 			
 		}
 		
 	}
+
 	
-	 private static void MostrarCalendario() {
-	    	System.out.println("Ingrese un anio: ");
-	    	String linea = scanner.nextLine();
-	    	int Y= -7777;
-	    	try {
-	    		Y=Integer.parseInt(linea);
-	    	} catch (Exception e) {
-	    			
-	  }
-	    	if (Y== -7777) {
-	    		System.out.println("Tienes que ingresar un anio");
-	    		return;	
-	    		
-	    	}
-	    	
-	    	System.out.println("Ingrese un mes: ");
-	    	 linea = scanner.nextLine();
-	    	int M= 0;
-	    	try {
-	    		M=Integer.parseInt(linea);
-	    	} catch (Exception e) {
-	    			
-	  }
-	    	if (M== 0) {
-	    		System.out.println("Tienes que ingresar un mes");
-	    		return;	
-	    		
-	    	}
-	    
-	    	String [] meses= {
-	   "",// mes 0 no existe
-	   "Enero","Febrero","Marzo",
-	   "Abril","Mayo","Junio",
-	   "Julio","Agosto","Septiembre",
-	   "Octubre","Noviembre","Diciembre"};
-	    	
-	    	
-	    	int [] dias= { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	    	
-	    	
-	    	if (M==2 &&  isLeapYear(Y)) dias [M]=29;
-	    	
-	    	System.out.println("    "+ meses[M] + " " +Y);
-	    	System.out.println("D  Lu  Ma  M  J  V  S");
-	    	
-	    	int  d= dia(M,1,Y);
-	    	String espacio = "";
-	    	
-	    	for(int i =0; i< d; i++)
-	    		System.out.print("   ");
-	    	for (int i=1; i<= dias[M]; i++) {
-	    		if (i<10)
-	    			System.out.print(i +"  ");
-	    		
-	    		else
-	    			System.out.print(i+" ");
-	    		
-	    		if(((i+d) % 7==0) || (i== dias[M])) System.out.println();
-	    		
-	    		
-	    		
-	    	}
-	    	
-	    	System.out.println("Ingrese un dia: ");
-	    	linea = scanner.nextLine();
-	    	int D =0;
-	    	
-	    	try {
-	    		D=Integer.parseInt(linea);
-	    	}	catch(Exception e) {
-	    
-	    	}
-	    if (D==0 || dias[M] < D) {
-	    	System.out.println("Tienes que ingresas un dia del mes");
-	    	return;
-	    }
-	    	
-	    Calendar cal = Calendar.getInstance();
-	    cal.set(Y, M-1, D);
-	       //for (Partido p : liga.getPartidos()) {
-	       //    Calendar cal2 = Calendar.getInstance();
-	       //    //cal2.setTime(p.getFecha());
-	       //     if (cal.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) || cal.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)) {
-	       //         System.out.println(p.getEquipoLocal().getNombre()+ " "+((PartidoJugado) p).getGolesLocal() + " : "+ ((PartidoJugado) p).getGolesVisitante()+ " "+((PartidoJugado) p).getEquipoVisitante().getNombre());
-	       //     }
-	       //}   
-	  }
-	    
-	    public static int dia(int M, int D, int Y) {
-	        int y = Y - (14 - M) / 12;
-	        int x = y + y/4 - y/100 + y/400;
-	        int m = M + 12 * ((14-M) / 12) - 2;
-	        int d = (D + x + (31*m)/12) % 7;
-	        return d;
-	    }
-	    
-	    public  static boolean isLeapYear(int year) {
-	        
-	        if ((year % 4 ==0) && (year % 100 !=0 )) return true;
-	        if (year % 400 == 0) return true;
-	        return false;  
-}
-	    
-	    
 	    private static void MostrarMercado() {
 	    	System.out.println("Ingrese el nombre del equipo para consultar presupuesto");
 	    	String linea = scanner.nextLine();
@@ -389,6 +320,22 @@ public class Menu {
 		
 	}
 	
+	private static void MostrarEquipos() {
+		
+		System.out.println("\nEquipos de la Liga: \n");
+		
+		liga.getEquipos().forEach((equipo) -> {
+			System.out.println(equipo.getNombre());
+		});
+		
+		// Si la liga no esta completa
+		if (!liga.ligaCompleta()) {
+			int equiposFaltantes = liga.getNumeroDeEquipos() - liga.getEquipos().size();
+			System.out.println("\n" + "Falta anadir " + equiposFaltantes + " equipos a la Liga" + "\n");
+		}
+		
+	}
+	
 	private static void MostrarEstadisticas() {
         
         System.out.println("Ingrese el nombre del equipo: ");
@@ -421,36 +368,64 @@ public class Menu {
 		}
 	}
 	
-	private static void MostrarJornadas() {
+	private static void MostrarCalendario() {
 		
 		List<Jornada> jornadas = liga.getCalendario();
 		
 		if (jornadas.isEmpty()) {
 			
-			System.out.println("Aun no se ha generado el Fixture");
+			System.out.println("Aun no se ha generado el Calendario");
+			return;
 		
 		} else {
-		
-			for(int i=0; i<jornadas.size(); i++){
-			    System.out.println("\n" + "JORNADA " + (i+1));
-			    List<Partido> jornada = jornadas.get(i).getPartidos();
-			    for(Partido fixture: jornada){
-			        System.out.println(fixture);
-			    }
-			    System.out.println("");
+			
+			if ( liga.isCalendarioListo() ) {
+				
+				int indiceJornada = 1;
+				
+				for (Jornada jornada: jornadas) {
+					
+					System.out.println("\n" + "JORNADA " + indiceJornada + "\n" + jornada.mostrarFecha());
+					
+					for (Partido partido: jornada.getPartidos()) {
+						System.out.println(partido);
+					}
+					
+					System.out.println("");
+					indiceJornada++;
+					
+				}
+				
+			} else {
+				
+				int indiceJornada = 1;
+				
+				for (Jornada jornada: jornadas) {
+					
+					System.out.println("\n" + "JORNADA " + indiceJornada  + "\nFecha por definir");
+					
+					for (Partido fixture: jornada.getPartidos()) {
+						System.out.println(fixture);
+					}
+					
+					System.out.println("");
+					indiceJornada++;
+					
+				}
+				
 			}
 			
 		}
 		
 	}
 	
-	private static void GenerarFixture() {
+	private static void GenerarCalendario() {
 		
 		// Si la liga aun no tiene fixture y ya fueron agregados todos los equipos
 		if ( liga.getCalendario().isEmpty() && liga.ligaCompleta()) {
 			
 			liga.generarFixture();
-			MostrarJornadas();
+			MostrarCalendario();
 			
 		// Si la liga no esta completa
 		} else if (!liga.ligaCompleta()) {
@@ -459,18 +434,44 @@ public class Menu {
 		
 		// Si la liga ya tiene fixture
 		} else {
-			System.out.println("El fixture ya fue creado, no se puede crear nuevamente");
+			System.out.println("El calendario ya fue creado, no se puede crear nuevamente");
 			return;
 		}
 		
 	}
 	
-	private static void AsignarArbitros() {
+	private static void AsignarArbitrosFechas() {
+		
+		if (liga.getCalendario().isEmpty()) {
+			System.out.println("El calendario debe ser creado");
+			return;
+		} else {
+			System.out.println("Ingrese la fecha de inicio de la liga: (dd-mm-aaaa)");
+			String linea = scanner.nextLine();
+			
+			Date fechaInicio;
+			
+	        try {
+	        	fechaInicio = new SimpleDateFormat("dd-MM-yyyy").parse(linea);
+	        } catch (ParseException ex) {
+	            System.out.println("Debes ingresar una fecha valida en formato dd-mm-aaaa");
+	            return;
+	        }
+	        
+	        liga.setFechaInicio(fechaInicio);
+	        liga.asignarArbitrosFechas();
+	        MostrarCalendario();
+		}
 		
 	}
 	
 	private static void PredecirResultados() {
 		
+	}
+	
+	private static void SalirDelSistema() {
+		Serializador.serializarTodo(liga);
+		System.exit(0);
 	}
 	
 

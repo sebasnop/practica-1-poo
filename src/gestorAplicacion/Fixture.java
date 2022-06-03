@@ -1,6 +1,8 @@
 package gestorAplicacion;
 
 public class Fixture extends Partido {
+	
+	private static final long serialVersionUID = 1L;
 
     EquipoFutbol equipoLocal;
     EquipoFutbol equipoVisitante;
@@ -32,11 +34,5 @@ public class Fixture extends Partido {
     public void setEquipoVisitante(EquipoFutbol equipoVisitante) {
         this.equipoVisitante = equipoVisitante;
     }
-
-    // Se coloca solo aqui porque a un PartidoJugado no se le puede reasignar el Arbitro
-	public void setArbitro(Arbitro arbitro) {
-		this.arbitro = arbitro;
-		arbitro.setPartidos(arbitro.getPartidos()+1);
-	}
 
 }

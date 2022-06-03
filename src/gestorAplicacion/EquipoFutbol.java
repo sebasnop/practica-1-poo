@@ -1,7 +1,10 @@
 package gestorAplicacion;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 public class EquipoFutbol extends ClubDeportivo implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private int victorias;
 	private int empates;
@@ -12,9 +15,17 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 	private int partidosJugados;
 	private int presupuesto;
 	
+	private ArrayList<Jugador> plantilla;
+	
 	public EquipoFutbol(String nombre, String ubicacion, int presupuesto){
+		this(nombre, ubicacion, presupuesto, new ArrayList<Jugador>());
+	}
+	
+	public EquipoFutbol(String nombre, String ubicacion, int presupuesto, ArrayList<Jugador> plantilla){
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
+		this.presupuesto = presupuesto;
+		this.plantilla = plantilla;
 	}
 	
 	public EquipoFutbol(){}
@@ -68,9 +79,16 @@ public class EquipoFutbol extends ClubDeportivo implements Serializable {
 		this.partidosJugados = partidosJugados;
 	}
 	
+	public ArrayList<Jugador> getPlantilla() {
+		return plantilla;
+	}
+	public void setPlantilla(ArrayList<Jugador> plantilla) {
+		this.plantilla = plantilla;
+	}
+	
 	
 	// Metodos
-	
+
 	public void registrarPartido (int golesAnotados, int golesRecibidos) {
 		
 		this.setGolesAnotados(getGolesAnotados() + golesAnotados);

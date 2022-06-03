@@ -7,6 +7,8 @@ import java.util.Random;
 
 public class Arbitro implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+	
 	// Para seleccionar arbitros aleatoriamente
 	static Random rand = new Random();
 	
